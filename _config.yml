@@ -1,0 +1,24 @@
+# Dependencies
+markdown:         kramdown
+highlighter:      rouge
+
+kramdown:
+  input:          GFM
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            wRangling Data for Ecologists
+description:      'Teaching the tools to get computers to do cool science'
+url:              http://ryanpeek.github.io/semester-biology
+baseurl:          /semester-biology
+email:            rapeek@ucdavis.edu
+feedbackurl:      https://docs.google.com/forms/d/e/1FAIpQLSdV_polFmoukgjcs1IC0Dd4iO1rdgwFnOds28xC_ma_z4tNIw
+author:
+  name:           'Ryan Peek'
+  url:            https://ryanpeek.github.io
+
+github:
+  repo:           https://github.com/ryanpeek/semester-biology
+  #               Be sure the 'Issues' feature is activated in 'Settings'
