@@ -36,7 +36,7 @@ RStudio provides a helpful set of tools to do this through its "Projects" interf
 
 Your working directory should now look like this:
 
-![How it should look like at the beginning of this lesson](img/r_starting_how_it_should_like.png)
+![How it should look like at the beginning of this lesson](r_starting_how_it_should_like.png)
 
 Organizing your working directory
 ---------------------------------
@@ -49,7 +49,7 @@ Using a consistent folder structure across your projects will help keep things o
 
 You may want additional directories or subdirectories depending on your project needs, but these should form the backbone of your working directory. For this workshop, you only need a `data/` folder.
 
-![Example of a working directory structure](img/R-ecology-work_dir_structure.png)
+![Example of a working directory structure](R-ecology-work_dir_structure.png)
 
 Presentation of RStudio
 =======================

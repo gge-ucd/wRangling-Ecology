@@ -3,6 +3,9 @@ layout: page
 title: Assignments
 ---
 
+### General Data Management
+* [Data Management](data-management)
+
 ### Git
 * [Git with R](r-git)
 
@@ -26,4 +29,3 @@ title: Assignments
 
 * [Introduction to Databases](sql-intro)
 * [Database Structure and Joins](sql-joins)
-*
