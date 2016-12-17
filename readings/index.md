@@ -3,6 +3,10 @@ layout: page
 title: Readings
 ---
 
+### Data Science & Management
+
+* [Data Science](Data-science)
+
 ### SQL
 
 * [Introduction to Databases](SQL-intro)
@@ -10,6 +14,7 @@ title: Readings
 
 ### R
 
+* [Before We Start](Data-science)
 * [Introduction to R and RStudio](R-intro)
 * [Working with Data](R-data)
 * [Data Visualization](R-datavis)

@@ -9,12 +9,12 @@ kramdown:
 permalink:        pretty
 
 # Setup
-title:            wRangling Data for Ecologists
-description:      'Teaching the tools to get computers to do cool science'
+title:            Data wRangling for Ecologists
+description:      'Using data science tools for exploration, analysis, and research'
 url:              http://gge-ucd.github.io/wRangling-Ecology
 baseurl:          /wRangling-Ecology
 email:            rapeek@ucdavis.edu
-feedbackurl:      https://docs.google.com/forms/d/e/1FAIpQLSdV_polFmoukgjcs1IC0Dd4iO1rdgwFnOds28xC_ma_z4tNIw
+feedbackurl:      https://docs.google.com/forms/d/e/1FAIpQLSeVawmCytz3b03YSIGRBwJMl463SkLFHDQUO0e0GQ3xIsKRTw/viewform
 author:
   name:           'Ryan Peek'
   url:            https://ryanpeek.github.io
