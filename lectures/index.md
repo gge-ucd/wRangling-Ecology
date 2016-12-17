@@ -10,6 +10,7 @@ title: Lectures
 
 ### R
 
+* [Before we Start](R-before-we-start)
 * [Introduction to R and RStudio](R-intro)
 * [Working with Data](R-data)
 * [Data Visualization](R-datavis)
@@ -24,4 +25,3 @@ title: Lectures
 ### Git
 
 * [Git with R](R-git)
-
