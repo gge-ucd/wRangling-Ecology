@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Mass vs Metabolism &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page">
+  <h2 class="page-topic">Graphing</h2>
+  <h1 class="page-title">Mass vs Metabolism</h1>
+  <br>
+  <p>The relationship between the body size of an organism and its metabolic
+rate is one of the most well studied and still most controversial areas
+of organismal physiology. We want to graph this relationship in the
+<a href="http://en.wikipedia.org/wiki/Even-toed_ungulate">Artiodactyla</a> using a
+subset of data from a large compilation of body size data (Savage et al.
+2004). You can copy and paste these two lists into your program:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>body_mass = [32000, 37800, 347000, 4200, 196500, 100000, 4290, 
+32000, 65000, 69125, 9600, 133300, 150000, 407000, 115000, 67000, 
+325000, 21500, 58588, 65320, 85000, 135000, 20500, 1613, 1618]
+
+metabolic_rate = [49.984, 51.981, 306.770, 10.075, 230.073, 
+148.949, 11.966, 46.414, 123.287, 106.663, 20.619, 180.150, 
+200.830, 224.779, 148.940, 112.430, 286.847, 46.347, 142.863, 
+106.670, 119.660, 104.150, 33.165, 4.900, 4.865]
+</code></pre>
+</div>
+
+<p>Now make two plots with appropriate axis labels:</p>
+
+<ol>
+  <li>A graph of body mass vs. metabolic rate</li>
+  <li>A graph of log(body mass) vs. log(metabolic rate)</li>
+</ol>
+
+<p>Think about what the shape of these graphs tells you about the form of
+the relationship between mass and metabolic rate.</p>
+
+<p><em>Optional: If you like to make this a little more challenging (and see something
+ really cool), try getting the raw data and selecting just the Artiodactyla data
+ yourself. Unfortunately the raw data is trapped in a table that’s just part of
+ the <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0269-8463.2004.00856.x/full">article webpage</a>. Fortunately, Pandas will automatically read the tables out of a webpage for us using its
+ <code class="highlighter-rouge">read_html</code> method. So, you can just run</em></p>
+
+<p><code class="highlighter-rouge">data = pd.read_html("http://onlinelibrary.wiley.com/doi/10.1111/j.0269-8463.2004.00856.x/full")</code></p>
+
+<p><em>and it will give us all of the tables from the web page, stored in a list. Pick
+ the first table out of the list and you’ll be ready to get to work</em></p>
+
+<p><em>NOTE: If you are using Enthought Canopy you will need a full Canopy
+ license. Academics can get this for free at
+ <a href="https://store.enthought.com/#canopy-academic">https://store.enthought.com/#canopy-academic</a>. Then
+ use the package manager to add <code class="highlighter-rouge">lxml</code>.</em></p>
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <font size="-1">[<a href="/wRangling-Ecology/solutions/Graphing-mass-vs-metabolism-Python-1.png">click here for output</a>]</font>
+    
+  
+    
+      <font size="-1">[<a href="/wRangling-Ecology/solutions/Graphing-mass-vs-metabolism-Python-2.png">click here for output</a>]</font>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+
+    </div>
+
+  </body>
+</html>

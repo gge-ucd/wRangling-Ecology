@@ -7,14 +7,8 @@ title: Readings
 
 * [Data Science](Data-science)
 
-### SQL
-
-* [Introduction to Databases](SQL-intro)
-* [Database Structure and Joins](SQL-joins)
-
 ### R
 
-* [Before We Start](Data-science)
 * [Introduction to R and RStudio](R-intro)
 * [Working with Data](R-data)
 * [Data Visualization](R-datavis)
@@ -31,3 +25,8 @@ title: Readings
 ### Git
 
 * [Git with R](R-git)
+
+### SQL
+
+* [Introduction to Databases](SQL-intro)
+* [Database Structure and Joins](SQL-joins)

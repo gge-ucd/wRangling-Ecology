@@ -4,7 +4,7 @@ title: Lecture Materials
 ---
 <a href="#SQL">SQL</a> \| <a href="#R">R</a> \| <a href="#Python">Python</a> \|  <a href="#Access">Access</a>
 
-### General Programing Resources
+### General Programming Resources
 -   [Problem Decomposition]({{ site.baseurl }}/materials/problem-decomposition)
 -   [Git Collaboration]({{ site.baseurl }}/materials/git-collaboration-example)
 -   [Git in 30 minutes]({{ site.baseurl }}/materials/git-in-30-minutes)

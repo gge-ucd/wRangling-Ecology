@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Aggregation &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Aggregation</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <blockquote>
+  <p>Remember to</p>
+
+  <ul>
+    <li>download <a href="https://ndownloader.figshare.com/files/2292171"><code class="highlighter-rouge">portal_mammals.sqlite</code></a>.</li>
+    <li>connect <code class="highlighter-rouge">portal_mammals.sqlite</code> to SQLite Manager.</li>
+  </ul>
+</blockquote>
+
+<h3 id="aggregation">Aggregation</h3>
+
+<ul>
+  <li>Aggregation lets us combine rows into groups based on their values and
+calculate combined values for each group.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT COUNT(*)
+FROM surveys;
+</code></pre>
+</div>
+
+<ul>
+  <li>Other aggregation functions include <code class="highlighter-rouge">MIN</code>, <code class="highlighter-rouge">MAX</code>, <code class="highlighter-rouge">AVG</code>, and <code class="highlighter-rouge">SUM</code>.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT MIN(weight), MAX(weight), AVG(weight)
+FROM surveys;
+</code></pre>
+</div>
+
+<ul>
+  <li>We can use <code class="highlighter-rouge">GROUP BY</code> to calculate these values for different groups. For
+example, to get the min, max, and average weight for each species.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT species_id, MIN(weight), MAX(weight), AVG(weight)
+FROM surveys
+GROUP BY species_id;
+</code></pre>
+</div>
+
+<ul>
+  <li>We can group by multiple columns as well.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT species_id, plot_id, MIN(weight), MAX(weight), AVG(weight)
+FROM surveys
+GROUP BY species_id, plot_id;
+</code></pre>
+</div>
+
+<ul>
+  <li>Aggregation functions remove null values from the calculations.</li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Aggregation-count-SQL">Exercise 8 - COUNT</a>.</p>
+</blockquote>
+
+<h3 id="having"><code class="highlighter-rouge">HAVING</code></h3>
+
+<ul>
+  <li>To filter by an outcome of an aggregation use <code class="highlighter-rouge">HAVING</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT species_id, plot_id, MIN(weight), MAX(weight), AVG(weight)
+FROM surveys
+GROUP BY species_id, plot_id
+HAVING MIN(weight) IS NOT NULL;
+</code></pre>
+</div>
+
+<ul>
+  <li>This works after aggregation, whereas <code class="highlighter-rouge">WHERE</code> works before aggregation</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT species_id, plot_id, MIN(weight), MAX(weight), AVG(weight)
+FROM surveys
+WHERE weight &gt; 10
+GROUP BY species_id, plot_id
+HAVING MIN(weight) IS NOT NULL;
+</code></pre>
+</div>
+
+<h3 id="only-grouped-or-aggregated-fields-in-select">Only grouped or aggregated fields in <code class="highlighter-rouge">SELECT</code></h3>
+
+<ul>
+  <li>When using <code class="highlighter-rouge">GROUP BY</code> only fields that are in the <code class="highlighter-rouge">GROUP BY</code> clause or
+aggregated fields should be used in the <code class="highlighter-rouge">SELECT</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT species_id, plot_id, MIN(weight), MAX(weight), AVG(weight)
+FROM surveys
+WHERE weight IS NOT NULL
+GROUP BY species_id, plot_id;
+</code></pre>
+</div>
+
+<ul>
+  <li>Using fields that aren’t grouped or aggregated results in counter intuitive
+results.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT species_id, plot_id, MIN(weight), MAX(weight), AVG(weight)
+FROM surveys
+WHERE weight IS NOT NULL
+GROUP BY species_id;
+</code></pre>
+</div>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

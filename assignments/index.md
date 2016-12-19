@@ -3,8 +3,8 @@ layout: page
 title: Assignments
 ---
 
-### General Data Management
-* [Data Management](data-management)
+### Data Management
+* [Data Sciences & Management](data-science)
 
 ### Git
 * [Git with R](r-git)

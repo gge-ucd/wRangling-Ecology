@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Phenology from Space &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page">
+  <h2 class="page-topic">NEON</h2>
+  <h1 class="page-title">Phenology from Space</h1>
+  <br>
+  <p>The high-resolution images from <a href="/wRangling-Ecology/exercises/Neon-canopy-height-from-space-R">Canopy Height from Space</a> 
+can be integrated with satellite imagery that is gathered more frequently. We
+will use data collected from <a href="http://modis.gsfc.nasa.gov/">MODIS</a>. One common
+ecological process that can be observed from space is <a href="https://en.wikipedia.org/wiki/Phenology">phenology</a> 
+(<em>or seasonal patterns</em>) of plants.
+Multi-band satellite imagery can be processed to provide a vegetation index of greenness called <a href="https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index">NDVI</a>. 
+NDVI values range from <code class="highlighter-rouge">-1.0</code> to <code class="highlighter-rouge">1.0</code>, where negative values indicate clouds, 
+snow, and water; bare soil returns values from <code class="highlighter-rouge">0.1</code> to <code class="highlighter-rouge">0.2</code>; and green vegetation returns values greater than <code class="highlighter-rouge">0.3</code>.</p>
+
+<p>Download <a href="/wRangling-Ecology/data/HARV-NDVI.zip"><code class="highlighter-rouge">HARV_NDVI</code></a> and <a href="/wRangling-Ecology/data/SJER-NDVI.zip"><code class="highlighter-rouge">SJER_NDVI</code></a> and place them in a folder with the NEON airborne data. The <code class="highlighter-rouge">zip</code> contain folders with a year’s worth of NDVI sampling 
+from MODIS. The files are in order (<em>and named</em>) by date and can be organized 
+implicitly by sampling period for analysis.</p>
+
+<ol>
+  <li>Plot the whole-raster mean NDVI (<code class="highlighter-rouge">cellStats()</code>) for Harvard Forest and SJER
+through time using different colors for the two sites.</li>
+  <li>Plot the mean NDVI of the <code class="highlighter-rouge">plot_locations</code> (<code class="highlighter-rouge">extract()</code>) for Harvard Forest
+and SJER through time using different colors for the two sites.</li>
+  <li>Describe the differences in vegetation structure (<code class="highlighter-rouge">chm</code>) from
+<a href="/wRangling-Ecology/exercises/Neon-canopy-height-from-space-R">Canopy Height from Space</a>
+and seasonal phenology (<code class="highlighter-rouge">NDVI</code>) that you observe in this analysis in a
+comment. Also, describe the impact of the different mean calculations on the
+analysis.</li>
+</ol>
+
+<p><em>Optional challenge: Extract <code class="highlighter-rouge">sampling_day</code> from the NDVI <code class="highlighter-rouge">file_name</code> and
+include that with your <code class="highlighter-rouge">data.frame</code> for graphing.</em></p>
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <font size="-1">[<a href="/wRangling-Ecology/solutions/Neon-phenology-from-space-R-1.jpeg">click here for output</a>]</font>
+    
+  
+    
+      <font size="-1">[<a href="/wRangling-Ecology/solutions/Neon-phenology-from-space-R-2.jpeg">click here for output</a>]</font>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Walkthrough R &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Walkthrough R</h1>
+  <h2 class="page-subtitle"></h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <h3 id="basic-workflow">Basic Workflow</h3>
+
+<p>The R environment is broken up into two main windows, the console and the script. The console window is the place where R is waiting for you to tell it what to do, and where it will show the results of a command. <code class="highlighter-rouge">&gt;</code> mark that R is ready to take a command. <code class="highlighter-rouge">+</code> means the command is not complete, like you are missing a <code class="highlighter-rouge">)</code> or <code class="highlighter-rouge">}</code>. You can type commands directly into the console, but they will be forgotten when you close the session.The script is a simple text (.R) file that stores your code. The point of a well constructed script is not just to “do stuff” but to do it in a way that maintains a complete record of your work so anyone can easily and exactly replicate your workflow and results.</p>
+
+<h3 id="basic-operation">Basic Operation</h3>
+
+<ul>
+  <li><code class="highlighter-rouge"># this is a comment in R</code></li>
+  <li>Use <code class="highlighter-rouge">x &lt;- 3</code> to assign a value, <code class="highlighter-rouge">3</code>,  to a variable, <code class="highlighter-rouge">x</code>
+    <ul>
+      <li><code class="highlighter-rouge">=</code> can also be used, but should be avoided EXCEPT in functions</li>
+    </ul>
+  </li>
+  <li>R counts from 1, unlike many other programming languages (e.g., Python)</li>
+  <li><code class="highlighter-rouge">length(thing)</code> returns the number of elements contained in the variable
+<code class="highlighter-rouge">thing</code>. <code class="highlighter-rouge">dim(thing)</code> returns length in multiple dimensions.</li>
+  <li><code class="highlighter-rouge">c(value1, value2, value3)</code> creates a vector</li>
+  <li><code class="highlighter-rouge">container[i]</code> selects the i’th element from the vector <code class="highlighter-rouge">container</code></li>
+  <li><code class="highlighter-rouge">container[[i]]</code> selects the i’th object from the object <code class="highlighter-rouge">container</code></li>
+  <li>You’ll have to get familiar with the different <code class="highlighter-rouge">class()</code> of objects:
+    <ul>
+      <li><code class="highlighter-rouge">character</code> is text</li>
+      <li><code class="highlighter-rouge">numeric</code> is numbers</li>
+      <li><code class="highlighter-rouge">factor</code> is categories</li>
+      <li><code class="highlighter-rouge">logical</code> is TRUE / FALSE</li>
+    </ul>
+  </li>
+  <li>Objects can be grouped in many ways:
+    <ul>
+      <li><code class="highlighter-rouge">list()</code></li>
+      <li><code class="highlighter-rouge">vector()</code> or <code class="highlighter-rouge">c()</code></li>
+      <li><code class="highlighter-rouge">matrix()</code></li>
+      <li><code class="highlighter-rouge">data.frame()</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="control-flow">Control Flow</h3>
+
+<ul>
+  <li>
+    <p>Create a conditional using <code class="highlighter-rouge">if</code>, <code class="highlighter-rouge">else if</code>, and <code class="highlighter-rouge">else</code></p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  if(x &gt; 0){
+      print("value is positive")
+  } else if (x &lt; 0){
+      print("value is negative")
+  } else{
+      print("value is neither positive nor negative")
+  }
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Create a <code class="highlighter-rouge">for</code> loop to process elements in a collection one at a time</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  for (i in 1:5) {
+      print(i)
+  }
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p>This will print:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	1
+	2
+	3
+	4
+	5
+</code></pre>
+</div>
+
+<ul>
+  <li>Use <code class="highlighter-rouge">==</code> to test for equality
+    <ul>
+      <li><code class="highlighter-rouge">3 == 3</code>, will return <code class="highlighter-rouge">TRUE</code>,</li>
+      <li><code class="highlighter-rouge">'apple' == 'orange'</code> will return <code class="highlighter-rouge">FALSE</code></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">X &amp; Y</code> is <code class="highlighter-rouge">TRUE</code> is both X and Y are true</li>
+  <li><code class="highlighter-rouge">X | Y</code> is <code class="highlighter-rouge">TRUE</code> if either X or Y, or both are true</li>
+</ul>
+
+<h3 id="functions">Functions</h3>
+
+<ul>
+  <li>
+    <p>Defining a function:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  is_positive &lt;- function(integer_value){
+      if(integer_value &gt; 0){
+         TRUE
+      else{
+         FALSE
+      {
+  }
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p>In R, the last executed line of a function is automatically returned, otherwise use <code class="highlighter-rouge">return()</code> to be sure you know what the function is giving back to you.</p>
+
+<ul>
+  <li>
+    <p>Specifying a default value for a function argument</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  increment_me &lt;- function(value_to_increment, value_to_increment_by = 1){
+      value_to_increment + value_to_increment_by
+  }
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">increment_me(4)</code>, will return 5</p>
+
+<p><code class="highlighter-rouge">increment_me(4, 6)</code>, will return 10</p>
+
+<ul>
+  <li>
+    <p>Call a function by using <code class="highlighter-rouge">function_name(function_arguments)</code></p>
+  </li>
+  <li>
+    <p>apply family of functions: <code class="highlighter-rouge">apply()</code>,	<code class="highlighter-rouge">sapply()</code>, <code class="highlighter-rouge">lapply()</code>,	<code class="highlighter-rouge">mapply()</code>
+ <code class="highlighter-rouge">apply(dat, MARGIN = 2, mean)</code> will return the average (<code class="highlighter-rouge">mean</code>) 
+ of each column in <code class="highlighter-rouge">dat</code></p>
+  </li>
+</ul>
+
+<h3 id="packages">Packages</h3>
+
+<ul>
+  <li>Install package by using <code class="highlighter-rouge">install.packages("package-name")</code></li>
+  <li>Update packages by using <code class="highlighter-rouge">update.packages("package-name")</code></li>
+  <li>Load packages by using <code class="highlighter-rouge">library("package-name")</code></li>
+</ul>
+
+<h3 id="math">Math</h3>
+
+<p>Do math by simply typing or pasting in the console.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>x+y
+x*y
+x**y
+sum(vector)
+mean(vector)
+round(vector, decimal_places)
+</code></pre>
+</div>
+
+<h3 id="scientific-commands">Scientific Commands</h3>
+
+<ul>
+  <li>Import data using <code class="highlighter-rouge">read.csv(file, header = TRUE, sep = ",", …)</code></li>
+  <li>Check out what you imported with <code class="highlighter-rouge">names()</code>, <code class="highlighter-rouge">head()</code>, and <code class="highlighter-rouge">str()</code></li>
+  <li>Export results using <code class="highlighter-rouge">write.csv(x, file, …)</code></li>
+  <li>Many statistical functions are available (<code class="highlighter-rouge">t.test()</code>, <code class="highlighter-rouge">lm(y~x)</code>)</li>
+</ul>
+
+<h3 id="finding-help">Finding Help</h3>
+
+<p>Don’t be defeated by a coding problem, semantics confusion, or error messages. 
+Find help:</p>
+
+<p><code class="highlighter-rouge">help(function)</code> or <code class="highlighter-rouge">?function</code> - Input any function into the parentheses for useful syntax and function information. <code class="highlighter-rouge">args()</code> gives you the arguments of a function.</p>
+
+<p>You can also check out the resources below or run a general engine search (i.e., <a href="https://duckduckgo.com/?q=r+split+character+string&amp;t=ffsb&amp;ia=qa">r split character string</a>).
+The hardest part here is finding the right keywords to use.</p>
+
+<h3 id="general-resources">General Resources</h3>
+
+<h4 id="manual-directories">Manual Directories</h4>
+
+<ul>
+  <li><a href="http://cran.r-project.org/doc/manuals/R-intro.html">R-project Intro</a></li>
+  <li><a href="http://stat.ethz.ch/R-manual/R-devel/library/">R-project Manual</a></li>
+  <li><a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/">base functions</a></li>
+  <li><a href="http://stat.ethz.ch/R-manual/R-devel/library/graphics/html/">graphics functions</a></li>
+  <li><a href="http://stat.ethz.ch/R-manual/R-devel/library/statistics/html">statistics functions</a></li>
+</ul>
+
+<h4 id="r-community-forums">R Community Forums</h4>
+
+<ul>
+  <li><a href="http://www.r-project.org/">R-project.org</a></li>
+  <li><a href="http://www.statmethods.net/">statmethods.net</a></li>
+  <li><a href="http://www.r-tutor.com/">R-tutor.com</a></li>
+  <li><a href="http://www.r-bloggers.com/">R-bloggers.com</a></li>
+  <li><a href="http://www.programiz.com/r-programming">Programiz</a></li>
+  <li><a href="http://stackoverflow.com/">Stackoverflow.com</a></li>
+</ul>
+
+<h4 id="how-to-ask-for-helphttpblogrevolutionanalyticscom201401how-to-ask-for-r-helphtml"><em><a href="http://blog.revolutionanalytics.com/2014/01/how-to-ask-for-r-help.html">How to ask for help</a></em></h4>
+
+<p>###Style Guides
+- <a href="http://r-pkgs.had.co.nz/style.html">Hadley Wickham</a>
+- <a href="https://google-styleguide.googlecode.com/svn/trunk/Rguide.xml">Google</a></p>
+
+<h4 id="this-document-benefited-greatly-by-the-inclusion-of-data-carpentry-materials-before-we-starthttpwwwdatacarpentryorgr-ecology-lesson00-before-we-starthtml-introduction-to-rhttpwwwdatacarpentryorgr-ecology-lesson01-intro-to-rhtml-and-software-carpentrys-programming-with-r-referencehttpswcarpentrygithubior-novice-inflammationreference"><em>This document benefited greatly by the inclusion of Data Carpentry materials (<a href="http://www.datacarpentry.org/R-ecology-lesson/00-before-we-start.html">Before we start</a>, <a href="http://www.datacarpentry.org/R-ecology-lesson/01-intro-to-R.html">Introduction to R</a>) and Software Carpentry’s (<a href="http://swcarpentry.github.io/r-novice-inflammation/reference/">Programming with R Reference</a>)</em></h4>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

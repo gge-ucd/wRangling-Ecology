@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Style Guide &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page">
+  <h2 class="page-topic">Help</h2>
+  <h1 class="page-title">Style Guide</h1>
+  <br>
+  <h3 id="file-content">File Content</h3>
+
+<ul>
+  <li>All web content files are written in <a href="http://daringfireball.net/projects/markdown/basics">Markdown</a> and start with <a href="https://jekyllrb.com/docs/frontmatter/">YAML front matter</a>. Any <code class="highlighter-rouge">.MD</code> file in the course can be modified for content using plain text in <a href="http://daringfireball.net/projects/markdown/basics">Markdown</a>, HTML, or <a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers">Liquid</a>.</li>
+  <li>File names and front matter must be revised carefully according to the <a href="/wRangling-Ecology/docs/site/course-structure">course structure</a> and <a href="/wRangling-Ecology/docs/">file templates</a>.</li>
+  <li><a href="/wRangling-Ecology/docs/course/manage-files">Add and modify files</a> from your local machine or online using <a href="https://github.com/gge-ucd/wRangling-Ecology">GitHub</a>.</li>
+</ul>
+
+<h3 id="page-layout">Page Layout</h3>
+
+<ul>
+  <li>
+    <p>Do not leave extra whitespace, unless required to properly format the markdown rendering. Include one blank line following the YAML front matter.</p>
+  </li>
+  <li>
+    <p>Wrap lines at 80 characters, but don’t break urls or markdown rendering.</p>
+  </li>
+</ul>
+
+<h3 id="general-syntax">General Syntax</h3>
+
+<ul>
+  <li>
+    <p>Use leading <code class="highlighter-rouge">#</code> for headers (<code class="highlighter-rouge"># Heading 1</code>). Most headers in the website content will be <code class="highlighter-rouge">###</code> or <code class="highlighter-rouge">####</code>.</p>
+  </li>
+  <li>
+    <p>Use <code class="highlighter-rouge">-</code> for unordered lists. Only use ordered lists if instructions, items, or tasks are sequential in execution.</p>
+  </li>
+  <li>
+    <p>Encase any hint, note, or () statement with * to italicize text (<em>like this</em>).</p>
+  </li>
+</ul>
+
+<h3 id="including-code-chunks">Including Code Chunks</h3>
+
+<ul>
+  <li>Use ` to denote code and objects according to their structure:
+    <ul>
+      <li><code class="highlighter-rouge">packages</code>, <code class="highlighter-rouge">objects</code> and <code class="highlighter-rouge">lists</code></li>
+      <li><code class="highlighter-rouge">functions()</code></li>
+      <li><code class="highlighter-rouge">directories/</code></li>
+      <li><code class="highlighter-rouge">data-and-output-files.txt</code></li>
+      <li><code class="highlighter-rouge">"characters"</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>Code chunks that take up a whole line should be placed in a code block using ```.</p>
+  </li>
+  <li>
+    <p>Use appropriate code style guides [ <a href="http://adv-r.had.co.nz/Style.html">R</a> | <a href="https://www.python.org/dev/peps/pep-0008/">Python</a> ] and <a href="http://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/">best practices</a>.</p>
+  </li>
+  <li>The code chunks have a shorter effective page width than the 80 characters 
+afforded normal text. Reduce the length of code blocks to improve readability 
+for students (<em>~60 characters</em>).</li>
+</ul>
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+
+    </div>
+
+  </body>
+</html>

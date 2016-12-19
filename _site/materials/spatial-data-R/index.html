@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Spatial Data Introduction &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Spatial Data Introduction</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <blockquote>
+  <p>Remember to download and set-up directory:</p>
+
+  <ul>
+    <li><a href="/wRangling-Ecology/data/NEON-airborne.zip">LiDAR rasters and plots</a></li>
+    <li><a href="/wRangling-Ecology/data/HARV-NDVI.zip"><code class="highlighter-rouge">HARV_NDVI</code></a></li>
+    <li><a href="/wRangling-Ecology/data/SJER-NDVI.zip"><code class="highlighter-rouge">SJER_NDVI</code></a></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>Load the following into browser window:</p>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li>Projections figure from http://neondataskills.org/R/Introduction-to-Raster-Data-In-R/</li>
+    <li>Canopy Height Model figure from http://neondataskills.org/R/Raster-Calculations-In-R/</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>Set-up R Console:</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>library(raster)
+library(rgdal)
+</code></pre>
+</div>
+
+<h3 id="raster-structure-import-and-plotting"><code class="highlighter-rouge">raster</code> structure, import, and plotting</h3>
+
+<ul>
+  <li>Spatial data is often organized in a <code class="highlighter-rouge">raster</code>.
+    <ul>
+      <li>gridded format (<em>like coordinates</em>)</li>
+      <li>each pixel is a value</li>
+      <li>most remote sensing and environmental data</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">raster()</code> import</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>dsm_harv &lt;- raster("HARV_dsmCrop.tif")
+dsm_harv
+</code></pre>
+</div>
+
+<ul>
+  <li>Metadata is important to describe the context of spatial data.
+    <ul>
+      <li><code class="highlighter-rouge">bands</code></li>
+      <li><code class="highlighter-rouge">projection</code></li>
+      <li><code class="highlighter-rouge">units</code></li>
+      <li><code class="highlighter-rouge">min</code>, <code class="highlighter-rouge">max</code>, <code class="highlighter-rouge">mean</code></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">dsm_harv</code> is a <code class="highlighter-rouge">RasterLayerObject</code> and we can get individual pieces of it’s
+ metadata using appropriate functions</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>nbands(dsm_harv)
+crs(dsm_harv)
+</code></pre>
+</div>
+
+<ul>
+  <li>Plotting
+    <ul>
+      <li>package modifies R basic <code class="highlighter-rouge">graphics</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>plot(dsm_harv)
+</code></pre>
+</div>
+
+<ul>
+  <li>Looking at raster values</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>hist(dsm_harv)
+</code></pre>
+</div>
+
+<h3 id="raster-math"><code class="highlighter-rouge">raster</code> math</h3>
+
+<ul>
+  <li>The DSM data is a Digital Surface Model: elevation of top physical point</li>
+  <li>DTM is Digital Terrain Model: elevation of the ground</li>
+  <li>We can create a Canopy Height Model (CHM) by taking the difference between them</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>dtm_harv &lt;- raster("HARV_dtmCrop.tif")
+chm_harv &lt;- dsm_harv - dtm_harv
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Do Tasks 1-2 from <a href="/wRangling-Ecology/exercises/Neon-canopy-height-from-space-R">Exercise 1 - Canopy Height from Space</a>.</p>
+</blockquote>
+
+<h3 id="import-and-reproject-shapefiles">Import and reproject shapefiles</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">vector</code> data can be added to <code class="highlighter-rouge">rasters</code> to provide reference information
+    <ul>
+      <li><code class="highlighter-rouge">csv</code></li>
+      <li><code class="highlighter-rouge">shapefile</code>
+        <ul>
+          <li>set of multiple files
+            <ul>
+              <li>same name, different extensions</li>
+            </ul>
+          </li>
+          <li><code class="highlighter-rouge">readOGR("directory/", "file_name_without_extentsions")</code>
+            <ul>
+              <li>stores data in a single <code class="highlighter-rouge">data.frame</code></li>
+              <li>access ‘attributes’ similar to GIS software using <code class="highlighter-rouge">$</code>
+                <ul>
+                  <li><code class="highlighter-rouge">file_name$site_id</code></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>plots_harv &lt;- readOGR("plot_locations/", "HARV_plots")
+plot(plots_harv, add=TRUE, pch=1, cex=2, lwd=2)
+</code></pre>
+</div>
+
+<ul>
+  <li>Uh oh, nothing happened.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>plots_harv
+</code></pre>
+</div>
+
+<ul>
+  <li>Coordinate Reference System (<em><code class="highlighter-rouge">crs</code> or ‘projection’</em>) is different from <code class="highlighter-rouge">raster</code>.
+    <ul>
+      <li>reproject <code class="highlighter-rouge">raster</code> with <code class="highlighter-rouge">projectraster()</code></li>
+      <li>reproject <code class="highlighter-rouge">vector</code> with <code class="highlighter-rouge">spTransform()</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>plots_harv_utm &lt;- spTransform(plots_harv, crs(chm_harv))
+plot(plots_harv_utm, add=TRUE, pch=1, cex=2, lwd=2)
+</code></pre>
+</div>
+
+<h3 id="extract-raster-data">Extract raster data</h3>
+
+<ul>
+  <li>Use <code class="highlighter-rouge">vector</code> to <code class="highlighter-rouge">extract()</code> values from <code class="highlighter-rouge">raster</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>extract(chm_harv, plots_harv_utm)
+</code></pre>
+</div>
+
+<ul>
+  <li>These are canopy heights from <code class="highlighter-rouge">chm_harv</code> at the coordinates from 
+<code class="highlighter-rouge">plots_harv_utm</code>.
+    <ul>
+      <li>Order of values lines up with <code class="highlighter-rouge">plots_harv_utm$site_id</code>.</li>
+    </ul>
+  </li>
+  <li>To get an average of the values in a nearby region use <code class="highlighter-rouge">buffer</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>extract(chm_harv, plots_harv_utm, buffer = 10, fun = mean)
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Assign remainder of <a href="/wRangling-Ecology/exercises/Neon-canopy-height-from-space-R">Exercise 1 - Canopy Height from Space</a>.</p>
+</blockquote>
+
+<h3 id="making-your-own-point-data">Making your own point data</h3>
+
+<ul>
+  <li>Make spatial data from <code class="highlighter-rouge">csv</code> file with latitudes and longitudes</li>
+  <li>Need to know the <code class="highlighter-rouge">proj4string</code> for standard latitude/longitude data</li>
+  <li><code class="highlighter-rouge">"+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>plot_latlong_data &lt;- read.csv("data/NEON-airborne/plot_locations/HARV_PlotLocations.csv")
+plot_latlong_data
+crs_longlat &lt;- crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+plot_latlong_data_spat &lt;- SpatialPointsDataFrame(plot_latlong_data[c('long', 'lat')],
+                                                    plot_latlong_data,
+                                                    proj4string = crs_longlat)
+str(plot_latlong_data_spat)
+plot(plot_latlong_data_spatial)
+</code></pre>
+</div>
+
+<h3 id="stacks-of-rasters">Stacks of rasters</h3>
+
+<ul>
+  <li>Sets of rasters in the same location often analyzed together</li>
+  <li><code class="highlighter-rouge">Raster stack</code></li>
+  <li>Can be stored in one or multiple files</li>
+  <li>To load all layers use <code class="highlighter-rouge">stack()</code> on a single multi-band file or multiple files</li>
+  <li>We’ll load a time-series of NDVI data from Harvard Forest into a raster stack
+    <ul>
+      <li>NDVI is a remotely sensed vegetation index that measures greenness</li>
+      <li>Provides information on plant phenology and productivity</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>library(raster)
+ndvi_files = list.files("data/HARV_NDVI/",
+                         full.names = TRUE,
+                         pattern = "HARV_NDVI.*.tif")
+ndvi_files
+ndvi_rasters &lt;- stack(ndvi_files)
+</code></pre>
+</div>
+
+<ul>
+  <li>Can visualize up to 16 layers using <code class="highlighter-rouge">plot()</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>plot(ndvi_rasters)
+plot(ndvi_rasters, seq(1, nlayers(ndvi_rasters), by = 2))
+hist(ndvi_rasters)
+</code></pre>
+</div>
+
+<ul>
+  <li>Calculate values across each raster using <code class="highlighter-rouge">cellStats()</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>avg_ndvi &lt;- cellStats(ndvi_rasters, mean)
+</code></pre>
+</div>
+
+<ul>
+  <li>Store in data frame</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>avg_ndvi_df &lt;- data.frame(samp_period = seq_along(avg_ndvi), ndvi = avg_ndvi)
+</code></pre>
+</div>
+
+<ul>
+  <li>Get row names into column</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>library(dplyr)
+avg_ndvi_df &lt;- tibble::rownames_to_column(avg_ndvi_df)
+</code></pre>
+</div>
+
+<blockquote>
+  <p><a href="/wRangling-Ecology/exercises/Neon-phenology-from-space-R">Exercise 2 - Phenology from Space</a>.</p>
+</blockquote>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

@@ -20,15 +20,16 @@ Download and install both of these but in this order:
 Hopefully this goes smoothly for everyone, it is the trickiest of the things we need to install. However, it may need a little testing/time, so please try to test/install this early so we can address any issues that pop up.
 
 You'll need to register an account with Github first, it's free!
- > Go here: https://github.com
+
+ > [Github](https://github.com)
 
 Please also register for the student develop pack, which gives you some free perks...
 
- > https://education.github.com/pack
+ > [Education Pack](https://education.github.com/pack)
 
 Then for a really nice set of instructions on how to do this, please go here and try to work through all the steps:
 
- > http://happygitwithr.com/installation-pain.html
+ > [Git Installation using Happy Git](http://happygitwithr.com/installation-pain.html)
 
 For a quick summary of instructions specific to your OS, see below:
 

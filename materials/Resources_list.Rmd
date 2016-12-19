@@ -1,0 +1,44 @@
+---
+title: "Resource List"
+author: "Ryan Peek"
+date: 'Updated: `r format(Sys.time(), "%Y-%b-%d")`'
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE)
+knitr::opts_knit$set(root.dir = normalizePath("../"))
+```
+
+## Links
+
+### Topic/Course Overview
+
+https://speakerdeck.com/jennybc/ubc-stat545-2015-cm001-intro-to-course
+
+### R Markdown
+http://stat545.com/block007_first-use-rmarkdown.html
+
+### Cleaning Data
+
+https://speakerdeck.com/jennybc/ubc-stat545-2015-cm103-data-cleaning-via-gapminder
+
+### ggplot2 Tutorial
+
+https://speakerdeck.com/jennybc/ggplot2-tutorial
+
+### Data Tidying
+
+https://speakerdeck.com/jennybc/data-rectangling
+
+### Git
+
+http://happygitwithr.com/
+
+https://github.com/jennybc/happy-git-with-r
+
+### R
+
+http://r4ds.had.co.nz/
+
+http://stat545.com/syllabus.html

@@ -3,29 +3,28 @@ layout: page
 element: notes
 title: Version Control
 language: R
---- 
+---
 
 > Before class
 >
-> * Remind students to setup a GitHub account and email the instructor their
->   username. 
+> * Remind students to setup a GitHub account and email the instructor their  username.
 > * Setup repo with students' username and respond with link to repo in email.
 
 > For class
-> 
+>
 > * Download [`surveys.csv`](https://ndownloader.figshare.com/files/2292172).
 > * Arrange to have a teaching partner attend class and `push` the following
 >   code for the 'Collaborating' demo.
 
 ```
 get_size_class_ts_data <- function(df){
-  # Convert individual data to time-series data for each of a set 
+  # Convert individual data to time-series data for each of a set
   # of size classes
   # Input: data frame with a year column for time
   #        and a size_class column
   ts_data <-
-    df %>% 
-    group_by(year, size_class) %>% 
+    df %>%
+    group_by(year, size_class) %>%
     summarize(counts = n())
   return(ts_data)
 }
@@ -102,15 +101,15 @@ git config --global --list
 
 * Download the data file [`surveys.csv`](https://ndownloader.figshare.com/files/2292172) to your project directory.
 * Git -> Select `surveys.csv`.
-* Commit with message. 
+* Commit with message.
     * `"Add survey data of different sized rodents"`
-* History: 
+* History:
     * One commit
     * Changes too large to see
 
 #### Commit R script
 
-* Create a new file. 
+* Create a new file.
     * `large-small-ts-analysis.R`
 * Add some code to the file.
     * `get_data()`
@@ -124,12 +123,12 @@ get_data <- function() {
 data <- get_data()
 ```
 
-* Git -> Select `large-small-ts-analysis.R`. 
+* Git -> Select `large-small-ts-analysis.R`.
     * Changes in staged files will be included in next commit.
     * Can also see changes by selecting `Diff`
-* Commit with message. 
+* Commit with message.
     * `"Start script comparing dynamics of different sized rodents"`
-* History: 
+* History:
     * Two commits
     * See what changes where made to `large-small-ts-analysis.R`
 
@@ -158,13 +157,13 @@ get_size_class <- function(weight) {
     * Check the box next to `large-small-ts-analysis.R`.
 * Commit with message.
     * `"Add function for determining size class"`
-* History: 
-    * Three commits 
+* History:
+    * Three commits
     * Each `large-small-ts-analysis.R` commit shows the additions we made in
       that commit.
 
-* Modify the code in `large-small-ts-analysis.R` 
-    * Add `threshold` to `if()` in `get_size_class()`. 
+* Modify the code in `large-small-ts-analysis.R`
+    * Add `threshold` to `if()` in `get_size_class()`.
 
 ```
 get_size_class <- function(weight, threshold){
@@ -178,9 +177,9 @@ get_size_class <- function(weight, threshold){
 ```
 
 * Stage -> Commit
-    * Now we see both red and green sections. 
-        * Green for lines that have been added 
-        * Red for lines that have been deleted 
+    * Now we see both red and green sections.
+        * Green for lines that have been added
+        * Red for lines that have been deleted
     * Git works line by line.
         * The previous version of the line is shown as deleted.
         * The new version of the line is shown as added.
@@ -225,7 +224,7 @@ get_size_class <- function(weight, threshold){
 * So far we've worked with a local `Git` repository.
 * One of the big benefits of version control is easy collaboration.
 * To do this, we synchronize our local changes with a `remote` repository.
-* We'll use GitHub. 
+* We'll use GitHub.
     * By far the most popular hosted version control site
     * Public and private hosted repositories
     * Private free for students and academics
@@ -254,9 +253,9 @@ add_size_classes <- function(df) {
   # Add size class data to a data frame
   # Input: data frame with weight column containing size information
   data_size_class <-
-    df %>% 
-    na.omit() %>% 
-    rowwise() %>% 
+    df %>%
+    na.omit() %>%
+    rowwise() %>%
     mutate(size_class = get_size_class(weight, 50))
   return(data_size_class)
 }

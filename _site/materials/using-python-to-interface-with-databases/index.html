@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Using Python to Interface with Databases &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Using Python to Interface with Databases</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <p>We will use <a href="http://sqlite.org/">SQLite</a> to discuss how to use Python
+with databases, but most other major systems work in the same way, just
+with a different library.</p>
+
+<h3 id="importing-the-library">Importing the library</h3>
+
+<p>We need to tell Python that we’re going to be working with SQLite, so we
+start by importing the <a href="http://docs.python.org/library/sqlite3.html">sqlite3
+library</a>. By importing
+using a generic name (e.g., dbapi) if we ever decide to change the
+database system that we’re using we can simply change the library name
+in this single line of code (in concept; in practice subtle differences
+between database systems may break things):</p>
+
+<p>import sqlite3 as dbapi</p>
+
+<h3 id="connecting-to-the-database">Connecting to the database</h3>
+
+<p>Next, we need to connect to the database using the database library’s
+connect method. With SQLite this is as simple as first making the
+connect:</p>
+
+<p>con = dbapi.connect(‘/path/to/database.sqlite’)</p>
+
+<p>and then getting a cursor which will let us execute SQL commands:</p>
+
+<p>cur = con.cursor()</p>
+
+<p>If the database does not currently exist then creating the connection
+will create it.\</p>
+
+<h3 id="querying-the-database">Querying the database</h3>
+
+<p>We can now execute any SQL commands that we want in the database using
+the cursor’s execute method. Querying the database simply involves
+writing the appropriate SQL and placing it inside a string in the
+execute method call:</p>
+
+<p>cur.execute(‘SELECT * FROM mytable WHERE myfield = myvalue’)</p>
+
+<p>To get the results into Python we then use either the fetchone method to
+fetch one record at a time (it returns None when there are no more
+records to fetch so that you know when to stop) or the fetchall method
+to return all of the records into a list. Each record is returned as a
+tuple of values, one value per field.</p>
+
+<p>myqueryrecords = cur.fetchall()</p>
+
+<p>or</p>
+
+<p>record = cur.fetchone()</p>
+
+<p>while record:</p>
+
+<p>    do_something_to(record)</p>
+
+<p>    record = cur.fetchone()</p>
+
+<p>If you want the database to return regular strings instead of unique
+strings (indicated by the u in front of every string) you can do this
+using the following command </p>
+
+<p>con.text_factory = str</p>
+
+<h3 id="modifying-the-database">Modifying the database</h3>
+
+<p>Modifications can also be made to the database using the execute
+function. For example,</p>
+
+<p>cur.execute(‘INSERT INTO mytable VALUES (value1, value2, value3’)</p>
+
+<p>cur.execute(‘DELETE FROM mytable WHERE myfield = myvalue’)</p>
+
+<p>In order for these changes to actually be made to the database we need
+to commit them by calling</p>
+
+<p>con.commit()</p>
+
+<p>This protects us if something goes wrong with our program because the
+changes won’t be finalized until the point where we commit them.</p>
+
+<h3 id="using-python-variables-inside-sql-queries">Using Python variables inside SQL queries</h3>
+
+<p>Often when working with databases in Python we will want to include
+variables from our Python code as part of the query. To do this we place
+a ? where each value should be inserted into the SQL statement and then
+include a tuple with the values to be inserted as a second argument in
+the execute statement.</p>
+
+<p>cur.execute(‘INSERT INTO mytable VALUES (?, ?, ?)’, (variable1,
+variable2, variable3))</p>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

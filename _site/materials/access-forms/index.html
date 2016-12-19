@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Forms &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Forms</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <p>Forms allow us to manage how data is entered.
+They allow us to simplify data entry by:</p>
+
+<ul>
+  <li>Only presenting the fields that need to be added</li>
+  <li>Presenting fields from multiple tables in a single view</li>
+  <li>Controlling the data that is actually entered to help make sure it is valid</li>
+</ul>
+
+<h2 id="creating-a-basic-form">Creating a basic form</h2>
+
+<p>We can create a basic form by:</p>
+
+<ol>
+  <li>Selecting the table we want to create the form for</li>
+  <li>Clicking on the <strong>Create</strong> tab</li>
+  <li>In the <strong>Forms</strong> section of the ribbon selecting the <strong>Form Wizard</strong></li>
+  <li>Selecting the fields that we want to include the in form at adding them with the <strong>&gt;</strong></li>
+  <li>Choosing the data layout</li>
+  <li>Giving the form a name</li>
+  <li>Pressing <strong>Finish</strong></li>
+</ol>
+
+<h3 id="example">Example</h3>
+
+<ul>
+  <li>Portal database</li>
+  <li>Plots table</li>
+  <li>No PlotID (because it is autonumber)</li>
+  <li>Columnar</li>
+</ul>
+
+<h2 id="using-a-basic-form">Using a basic form</h2>
+
+<p>We can now use this form to look at the contents of the table using the arrows,
+or add a new record by clicking on the arrow with the star next to it.</p>
+
+<p>Once the new data has been entered we can add it to the database by either pressing the arrow with the star again,
+or by pressing tab while in the last field.</p>
+
+<p>Even without any more work forms will stop major data entry errors based on the data type.</p>
+
+<h2 id="quality-assurance-basics">Quality Assurance Basics</h2>
+
+<p>We can provide much better control over data entry using forms.</p>
+
+<ol>
+  <li>Go to <strong>Design View</strong></li>
+  <li>Select the data entry field you want to control</li>
+  <li>If it is not already open, open the <strong>Property Sheet</strong></li>
+  <li>In the <strong>Validation Rule</strong> box enter the rule to limit values that can be entered</li>
+  <li>Optionally, enter text to return if the rule is violated in the <strong>Validation Text</strong> box</li>
+</ol>
+
+<h3 id="example-1">Example</h3>
+
+<ul>
+  <li>List of possible strings for PlotTypeAlphaCode</li>
+  <li>Restrict numeric codes to between 0 and 4</li>
+</ul>
+
+<h2 id="selection-options-from-a-list">Selection options from a list</h2>
+
+<p>We can also simple give users a list of options to select from.</p>
+
+<ol>
+  <li>Right click on data entry field</li>
+  <li>Select <strong>Change To</strong> and then the kind of box you want to supply</li>
+  <li>In the <strong>Property Shee</strong> click in the <strong>Row Source</strong> box and then click on the three dots</li>
+  <li>Now build a query that gives you the values you need</li>
+  <li>Click <strong>Close</strong></li>
+  <li>Click <strong>Yes</strong></li>
+  <li>Now the user just selects one of the options that you have given them</li>
+</ol>
+
+<h3 id="example-2">Example</h3>
+
+<ul>
+  <li>List box for alpha codes</li>
+  <li>The combo box for alpha codes</li>
+</ul>
+
+<h2 id="this-is-only-the-beginning">This is only the beginning</h2>
+
+<p>There are <em>many</em> other things that you can do using forms.
+You can add buttons for starting new records, saving changes, or performing other tasks.
+You can edit forms in multiple tables simultaneously and
+have the values you enter for one table influence the values in another.
+And many other powerful and useful controls.</p>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

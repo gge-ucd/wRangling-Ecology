@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Other Data Structures &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Other Data Structures</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <blockquote>
+  <p>Remind students to <a href="http://www.bioconductor.org/install/">install Bioconductor</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>Remember to download <a href="/wRangling-Ecology/data/archaea-dna.zip">Archaea genome data</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>Set up R console:</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>source("https://bioconductor.org/biocLite.R")
+biocLite("ShortRead")
+library(ShortRead)
+</code></pre>
+</div>
+
+<h3 id="lists">Lists</h3>
+
+<ul>
+  <li>Lists are generic vectors that can hold other things.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sites &lt;- c("a", "b", "c")
+notes &lt;- "It was a good day in the field today. Warm, sunny, lots of gators."
+helpers &lt;- 4
+field_notes &lt;- list(sites, notes, helpers)
+field_notes[1]
+field_notes[[1]]
+</code></pre>
+</div>
+
+<ul>
+  <li>We can also give the values names.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>field_notes &lt;- list(sites=sites, notes=notes, helpers=helpers)
+field_notes$sites
+field_notes[["sites"]]
+</code></pre>
+</div>
+
+<h3 id="objects">Objects</h3>
+
+<ul>
+  <li>Data structures are defined in R as <code class="highlighter-rouge">class()</code> and stored in <code class="highlighter-rouge">objects()</code>.
+    <ul>
+      <li><code class="highlighter-rouge">vector()</code>
+        <ul>
+          <li><code class="highlighter-rouge">"character"</code></li>
+          <li><code class="highlighter-rouge">"integer"</code></li>
+          <li><code class="highlighter-rouge">"numeric"</code></li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">data.frame()</code>
+        <ul>
+          <li><code class="highlighter-rouge">"data.frame"</code></li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">list()</code>
+        <ul>
+          <li><code class="highlighter-rouge">"list"</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>We can also make arbitrary objects that store whatever kinds of
+data we need.
+    <ul>
+      <li>Genome sequences</li>
+      <li>Geographical information</li>
+      <li>Evolutionary trees</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="bioconductor">Bioconductor</h3>
+
+<ul>
+  <li>
+    <p><a href="http://www.bioconductor.org/">Bioconductor</a> is software for bioinformatics, that includes <code class="highlighter-rouge">ShortRead</code> 
+for working with genomic data in R.</p>
+  </li>
+  <li>
+    <p>We’re using genomic data from <a href="http://www.ncbi.nlm.nih.gov/">Genbank</a>.</p>
+    <ul>
+      <li>Archaea genome</li>
+      <li>Coding regions</li>
+      <li><code class="highlighter-rouge">.FASTA</code>
+        <ul>
+          <li>Format stores nucleotide sequences</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>reads &lt;- readFasta("data/archaea_dna/T-pendens.fasta")
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">reads</code> is a special kind of object class, <code class="highlighter-rouge">ShortRead</code>.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>reads
+</code></pre>
+</div>
+
+<ul>
+  <li>The <code class="highlighter-rouge">str()</code> of <code class="highlighter-rouge">ShortRead</code> includes other kinds of objects.
+    <ul>
+      <li>Object access:
+        <ul>
+          <li>using the <code class="highlighter-rouge">@</code> operator</li>
+          <li><code class="highlighter-rouge">ShortRead</code> functions</li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">"DNAStringSet"</code> holds groups of sequences
+        <ul>
+          <li><code class="highlighter-rouge">@sread</code></li>
+          <li><code class="highlighter-rouge">sread()</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>str(reads)
+
+reads@sread
+reads@sread[[1]]
+
+reads@sread@ranges
+reads@sread@ranges@start
+
+sread(reads)
+</code></pre>
+</div>
+
+<ul>
+  <li>Managing and manipulating complex data structures
+    <ul>
+      <li>Hard to get right in all cases</li>
+      <li>Best to rely on existing tools</li>
+      <li>Someone has probably already developed a tool for your data structure.</li>
+    </ul>
+  </li>
+  <li>Other useful <code class="highlighter-rouge">ShortRead</code> functions</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>reverse(reads@sread)
+complement(reads@sread)
+reverseComplement(reads@sread)
+alphabetFrequency(reads@sread)
+translate(reads@sread)
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Assign <a href="/wRangling-Ecology/exercises/Loops-multiple-files-R">Exercise 6 - Multiple Files</a>.</p>
+</blockquote>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

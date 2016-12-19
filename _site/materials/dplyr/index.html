@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Working with Tabular Data &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Working with Tabular Data</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <blockquote>
+  <p>Remember to</p>
+
+  <ul>
+    <li>download <a href="https://ndownloader.figshare.com/files/2292172"><code class="highlighter-rouge">surveys.csv</code></a>.</li>
+    <li>download <a href="https://ndownloader.figshare.com/files/3299483"><code class="highlighter-rouge">species.csv</code></a>.</li>
+    <li>
+      <p>download <a href="https://ndownloader.figshare.com/files/2292171"><code class="highlighter-rouge">portal_mammals.sqlite</code></a>.</p>
+    </li>
+    <li>Consider removing the <code class="highlighter-rouge">dplyr</code> package so you can demonstrate installing it.
+      <ul>
+        <li>Linux users: you may not want to do this because the source install is slow</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>INSTALL WARNING: Some Windows users have issues installing <code class="highlighter-rouge">dplyr</code> receiving
+errors that the associate files cannot be copied. This is an issue with
+McAfee anti-virus. Streaming protection should be temporarily disabled to
+allow installation.</p>
+</blockquote>
+
+<h3 id="packages">Packages</h3>
+
+<ul>
+  <li>Main way that reusable code is shared in R</li>
+  <li>Combination of code, data, and documentation</li>
+  <li>R has a rich ecosystem of packages for data manipulation &amp; analysis</li>
+  <li>Download and install packages with the R console:
+    <ul>
+      <li><code class="highlighter-rouge">install.packages("dplyr")</code></li>
+    </ul>
+  </li>
+  <li>Using a package:
+    <ul>
+      <li>Load all of the functions in the package: <code class="highlighter-rouge">library("dplyr")</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="basic-dplyr">Basic <code class="highlighter-rouge">dplyr</code></h3>
+
+<ul>
+  <li>Modern data manipulation library for R</li>
+  <li>Does a lot of the same things we’ve learned to do in SQL.</li>
+</ul>
+
+<blockquote>
+  <ul>
+    <li>Start a new project (modeling good practice)</li>
+  </ul>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>surveys &lt;- read.csv("surveys.csv")
+</code></pre>
+</div>
+
+<ul>
+  <li>Select:
+    <ul>
+      <li><code class="highlighter-rouge">select(surveys, year, month, day)</code></li>
+    </ul>
+  </li>
+  <li>Filter:
+    <ul>
+      <li><code class="highlighter-rouge">filter(surveys, species_id == "DS")</code></li>
+      <li><code class="highlighter-rouge">filter(surveys, species_id == "DS", year &gt; 1995)</code></li>
+    </ul>
+  </li>
+  <li>Mutate:
+    <ul>
+      <li><code class="highlighter-rouge">mutate(surveys, hindfoot_length_cm = hindfoot_length / 10)</code></li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Dplyr-shrub-volume-data-basics-R">Exercise 2 - Shrub Volume Data Basics</a>.</p>
+</blockquote>
+
+<h3 id="aggregation">Aggregation</h3>
+
+<ul>
+  <li>Group by:
+    <ul>
+      <li><code class="highlighter-rouge">group_by(surveys, species_id)</code></li>
+      <li>Different looking kind of <code class="highlighter-rouge">data.frame</code>
+        <ul>
+          <li>Source, grouping, and data type information</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>surveys_by_species &lt;- group_by(surveys, species_id)
+</code></pre>
+</div>
+
+<ul>
+  <li>Grouping with <code class="highlighter-rouge">summarize()</code>:
+    <ul>
+      <li><code class="highlighter-rouge">summarize(surveys_by_species, avg_weight = mean(weight))</code></li>
+      <li>Real data problem:
+        <ul>
+          <li><code class="highlighter-rouge">mean(weight)</code> when <code class="highlighter-rouge">weight</code> has missing values (<code class="highlighter-rouge">NA</code>)
+            <ul>
+              <li>Returns <code class="highlighter-rouge">NA</code></li>
+              <li><code class="highlighter-rouge">mean(weight, na.rm=TRUE)</code></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Dplyr-shrub-volume-aggregation-R">Exercise 3 - Shrub Volume Aggregation</a>.</p>
+</blockquote>
+
+<h3 id="joins">Joins</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">inner_join</code> in <code class="highlighter-rouge">dplyr</code> works like <code class="highlighter-rouge">JOIN</code> in SQL</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>species &lt;- read.csv("species.csv")
+combined &lt;- inner_join(surveys, species, by = "species_id")
+head(combined)
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Dplyr-shrub-volume-join-R">Exercise 4 - Shrub Volume Join</a>.</p>
+</blockquote>
+
+<h3 id="pipes">Pipes</h3>
+
+<ul>
+  <li>Combine a series of data manipulation actions</li>
+  <li>Intermediate variables
+    <ul>
+      <li>Step-wise approach</li>
+      <li>Can get cumbersome with lots of variable objects in the environment</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>surveys_DS &lt;- filter(surveys, species_id == "DS")
+surveys_DS_by_yr &lt;- group_by(surveys_DS, year)
+avg_weight_DS_by_yr &lt;- summarize(surveys_DS_by_yr, 
+                                 avg_weight = mean(weight, na.rm=TRUE))
+</code></pre>
+</div>
+
+<ul>
+  <li>Pipes:
+    <ul>
+      <li>Operator:
+        <ul>
+          <li><code class="highlighter-rouge">%&gt;%</code></li>
+        </ul>
+      </li>
+      <li>Operation:
+        <ul>
+          <li><code class="highlighter-rouge">%&gt;%</code> takes the output of one command and passes it as input to the next command</li>
+          <li><code class="highlighter-rouge">x %&gt;% f(y)</code> translates to <code class="highlighter-rouge">f(x, y)</code></li>
+          <li><code class="highlighter-rouge">surveys %&gt;% filter(species_id == "DS")</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>surveys %&gt;%
+  filter(species_id == "DS") %&gt;%
+  group_by(year) %&gt;%
+  summarize(avg_weight = mean(weight, na.rm=TRUE))
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Dplyr-fix-the-code-R">Fix the Code</a>.</p>
+</blockquote>
+
+<h3 id="using-dplyr-with-databases">Using <code class="highlighter-rouge">dplyr</code> with databases</h3>
+
+<ul>
+  <li>We can also use <code class="highlighter-rouge">dplyr</code> to access data directly from a database.
+    <ul>
+      <li>No need to export files from the database</li>
+      <li>Lets the database do the heavy lifting
+        <ul>
+          <li>Faster</li>
+          <li>No RAM limits</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>portaldb &lt;- src_sqlite("portal_mammals.sqlite")
+surveys &lt;- tbl(portaldb, "surveys")
+surveys
+query &lt;- "SELECT year, month, day, genus, species
+          FROM surveys JOIN species
+          ON surveys.species_id = species.species_id"
+tbl(portaldb, sql(query))
+</code></pre>
+</div>
+
+<ul>
+  <li>Speed example using Breeding Bird Survey of North America data
+    <ul>
+      <li>~85 million cells (&gt;250 MB)</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Loading from SQLite completes instantly
+bbs_sqlite &lt;- src_sqlite("bbs.sqlite")
+bbs_counts &lt;- tbl(bbs_sqlite, "bbs_counts")
+bbs_counts
+
+# Loading from csv takes 30 seconds
+bbs_counts_csv &lt;- read.csv("BBS_counts.csv")
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Dplyr-link-to-databases-R">Links to Databases</a>.</p>
+</blockquote>
+
+<ul>
+  <li>Queries and data manipulation functions return similar results with various 
+headings (<code class="highlighter-rouge">Source:   query</code>).</li>
+  <li>Queries and data manipulation results will remain in the external database.</li>
+  <li>Use <code class="highlighter-rouge">collect()</code> to store results in a local data frame (<code class="highlighter-rouge"># A tibble</code>).</li>
+</ul>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

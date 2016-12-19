@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Reports &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Reports</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <p>In the same way that Forms are simple controllable ways to enter data in tables,
+<strong>Reports</strong> are simple controllable ways to present the results of queries.
+They can be used for accomplishing repeated tasks like:</p>
+
+<ul>
+  <li>Permit applications</li>
+  <li>Reports to permitting agencies</li>
+  <li>Reports to funding agencies</li>
+</ul>
+
+<h2 id="creating-a-basic-report">Creating a Basic Report</h2>
+
+<ol>
+  <li>Create a query that contains the information you want</li>
+  <li>Save the query</li>
+  <li>Highlight the query</li>
+  <li>On the <strong>Create</strong> tab in the <strong>Reports</strong> section click the <strong>Report</strong> button</li>
+</ol>
+
+<h3 id="example">Example</h3>
+<p>Counts in each year for a chosen species</p>
+
+<p>This is great, but if we want to do this for each species we’d have to edit the query to change the criteria.</p>
+
+<h2 id="taking-input-in-queries">Taking input in queries</h2>
+<p>Instead of editing the query each time we create a report, we can just have Access ask us which species we want.</p>
+
+<ol>
+  <li>Make a query</li>
+  <li>In the criteria row insert [], this tells Access that we want to enter the criteria when we run the query</li>
+  <li><em>Optionally</em> enter some text to be displayed explaining what information is desired, this goes inside the []</li>
+</ol>
+
+<h3 id="example-1">Example</h3>
+<p>Change query to take species name as input</p>
+
+<h2 id="using-the-report-wizard">Using the Report Wizard</h2>
+
+<p>If we want to exercise a little more control over the Report we can use the <strong>Report Wizard</strong>.
+The initial process is the same:</p>
+
+<ol>
+  <li>Create a query that contains the information you want</li>
+  <li>Save the query</li>
+  <li>Highlight the query</li>
+</ol>
+
+<p>but then instead of using the <strong>Report</strong> button we:</p>
+
+<ol>
+  <li>Click the <strong>Report Wizard</strong> button</li>
+  <li>Select the fields that you want to display</li>
+  <li>Select any grouping fields
+    <ul>
+      <li>These should be fields that use Group By in the query</li>
+      <li>Instead of being displayed as columns they will</li>
+    </ul>
+  </li>
+  <li>Select sort orders for any of the fields</li>
+  <li>Select a layout</li>
+</ol>
+
+<h3 id="example-2">Example</h3>
+<p>Just display year and count without species name</p>
+
+<h2 id="modifying-a-report">Modifying a Report</h2>
+<p>We can modify reports using the <strong>Design View</strong>.</p>
+
+<ol>
+  <li>Move things around</li>
+  <li>Change fonts, formats, etc.</li>
+  <li>Add new information that is in the query, but not currently display. E.g.,
+    <ol>
+      <li>Add a new text box using the button in the <strong>Design</strong> tab</li>
+      <li>Select it</li>
+      <li>Use the <strong>Control Source</strong> box in the <strong>Data</strong> tab of the <strong>Property Sheet</strong> to chose the data</li>
+    </ol>
+  </li>
+</ol>
+
+<h3 id="example-3">Example</h3>
+<p>Add species name to the header</p>
+
+<h2 id="an-example-with-grouping">An example with Grouping</h2>
+<p>Let’s look at another example.
+Let’s say that our reporting requirments involve presenting the data for all species.
+To do this we would:</p>
+
+<ol>
+  <li>Write a query that gives us the information we need.</li>
+  <li>Use the <strong>Report Wizard</strong> to create a Report</li>
+  <li>On the <strong>Grouping fields</strong> screen select species</li>
+</ol>
+
+<h2 id="just-getting-started">Just getting started</h2>
+<p>There are <em>lots</em> of more advanced things that can be accomplished using Reports.
+Hopefully this is enough to get you started.</p>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

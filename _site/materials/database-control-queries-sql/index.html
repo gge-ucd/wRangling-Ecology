@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Database Control Queries &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Database Control Queries</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <ul>
+  <li>This is an advanced treatment of <a href="/wRangling-Ecology/materials/database-control-sql">Database Control</a> using queries instead of SQLite Manager tabs.</li>
+</ul>
+
+<h3 id="enter-the-data-directly">Enter the data directly</h3>
+
+<blockquote>
+  <p>Show students the SQLite Manager <code class="highlighter-rouge">Execute SQL</code> tab.</p>
+</blockquote>
+
+<ul>
+  <li><a href="http://www.w3schools.com/sql/sql_create_table.asp"><code class="highlighter-rouge">CREATE TABLE</code></a>
+    <ul>
+      <li>name table</li>
+      <li>list field names and data types
+        <ul>
+          <li>may constrain data values
+            <ul>
+              <li><code class="highlighter-rouge">Null</code></li>
+              <li><code class="highlighter-rouge">Unique</code></li>
+              <li>value length</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE Experiment(
+  LoginID TEXT,
+  Project TEXT,
+  Experiment INTEGER,
+  Hours REAL,
+  ExperimentDate TEXT
+);
+</code></pre>
+</div>
+
+<ul>
+  <li>We realized we want to add some more specific configuration to the table.</li>
+  <li>Restart requires:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>DROP TABLE Experiment
+</code></pre>
+</div>
+
+<ul>
+  <li>Add unique <code class="highlighter-rouge">RecordID</code> field to be the primary key</li>
+  <li>Prevent important values from being <code class="highlighter-rouge">NULL</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE Experiment(
+  RecordID INTEGER PRIMARY KEY AUTOINCREMENT,
+  LoginID TEXT NOT NULL,
+  Project TEXT NOT NULL,
+  Experiment INTEGER NOT NULL,
+  Hours REAL,
+  ExperimentDate TEXT(10)
+);
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Database-control-creating-tables-SQL/">Exercise 3 - Creating Tables</a>.</p>
+</blockquote>
+
+<ul>
+  <li>Add new records
+    <ul>
+      <li><a href="http://www.w3schools.com/sql/sql_insert.asp"><code class="highlighter-rouge">INSERT INTO</code></a></li>
+      <li>If values for all fields are being added:</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>INSERT INTO Experiment 
+VALUES (1, 'ipav', 'Conditioning', 1, 3.2, '1910-07-05');
+</code></pre>
+</div>
+
+<ul>
+  <li>Add incomplete records
+    <ul>
+      <li>If you are only adding values for some of the possible fields
+        <ul>
+          <li>Indicate which fields the values correspond to:</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>INSERT INTO Experiment (LoginID, Project, Experiment, Hours, 
+ExperimentDate) 
+VALUES ('jane', 'Great Apes', 1, 7, '1967-04-13');
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Database-control-adding-records-SQL/">Exercise 4 - Adding Records</a>.</p>
+</blockquote>
+
+<h3 id="modifying-existing-records">Modifying existing records</h3>
+
+<ul>
+  <li><a href="http://www.w3schools.com/sql/sql_update.asp"><code class="highlighter-rouge">UPDATE</code></a>
+    <ul>
+      <li>name table</li>
+      <li><code class="highlighter-rouge">SET</code> values of any or all of the fields</li>
+      <li><code class="highlighter-rouge">WHERE</code> conditions are met
+        <ul>
+          <li><em>Don’t forget the <code class="highlighter-rouge">WHERE</code> clause or the update statement will
+update <strong>all</strong> of the records in the database.</em></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>UPDATE Experiment 
+SET Hours=7.5, ExperimentDate='1967-04-19' 
+WHERE RecordID=2;
+</code></pre>
+</div>
+
+<h3 id="deleting-records">Deleting records</h3>
+
+<ul>
+  <li><a href="http://www.w3schools.com/sql/sql_delete.asp"><code class="highlighter-rouge">DELETE</code></a>
+    <ul>
+      <li>name table</li>
+      <li><code class="highlighter-rouge">WHERE</code> conditions are met
+        <ul>
+          <li><em>Don’t forget the <code class="highlighter-rouge">WHERE</code> clause or the update statement will
+update <strong>all</strong> of the records in the database.</em></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>DELETE FROM Experiment 
+WHERE LoginID='ipav';
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Database-control-updating-records-SQL/">Exercise 5 - Updating Records</a>.</p>
+</blockquote>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

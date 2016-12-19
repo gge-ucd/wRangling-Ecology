@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      dplyr with Databases &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">dplyr with Databases</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <blockquote>
+  <p>Remember to</p>
+
+  <ul>
+    <li>download <a href="https://ndownloader.figshare.com/files/2292171"><code class="highlighter-rouge">portal_mammals.sqlite</code></a>.</li>
+    <li>open <code class="highlighter-rouge">portal_mammals.sqlite</code> in SQLite Manager.</li>
+    <li>make sure the copy you are going to use in class does not have the <code class="highlighter-rouge">SpeciesCounts</code> table or view.</li>
+  </ul>
+</blockquote>
+
+<ul>
+  <li>We’ve already seen briefly how to work with databases using <code class="highlighter-rouge">dplyr</code>.</li>
+  <li>Let’s get more familiar with the <code class="highlighter-rouge">dplyr</code> software for databases.</li>
+  <li><code class="highlighter-rouge">dplyr</code> uses ‘low-level’ database management libraries (<code class="highlighter-rouge">DBI</code>, <code class="highlighter-rouge">RSQLite</code>)
+for powerful and cohesive interaction with databases.</li>
+</ul>
+
+<h3 id="connect">Connect</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>library(dplyr)
+portaldb &lt;- src_sqlite("portal_mammals.sqlite")
+</code></pre>
+</div>
+
+<h3 id="check-out-database-structure">Check out database structure</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>portaldb
+tbl(portaldb, "plots")
+
+surveys &lt;- tbl(portaldb, "surveys") %&gt;% collect()
+surveys
+surveys$ops$vars
+</code></pre>
+</div>
+
+<h3 id="run-queries-review">Run queries review</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>query &lt;- "SELECT genus, species, COUNT(*)
+          FROM surveys JOIN species
+          ON surveys.species_id = species.species_id
+          GROUP BY genus, species"
+species_counts &lt;- tbl(portaldb, sql(query))
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Dplyr-databases-source-and-query-R/">Exercise 1 - Source and Query</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Dplyr-databases-manipulate-query-R/">Exercise 2 - Manipulate Query</a>.</p>
+</blockquote>
+
+<h3 id="write-new-information-to-database">Write new information to database</h3>
+
+<blockquote>
+  <p>Show the original <code class="highlighter-rouge">portal_mammals.sqlite</code> in SQLite Manager.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>copy_to(portaldb, species_counts)
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Show <code class="highlighter-rouge">species_counts</code> table <em>NOT</em> in <code class="highlighter-rouge">portal_mammals.sqlite</code>.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>copy_to(portaldb, species_counts, temporary=FALSE, 
+        name="SpeciesCounts")
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Show <code class="highlighter-rouge">SpeciesCounts</code> table in <code class="highlighter-rouge">portal_mammals.sqlite</code> with new name.</p>
+</blockquote>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Dplyr-databases-copy-to-database-R/">Exercise 3 - Copy to Database</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>Assign remaining exercises.</p>
+</blockquote>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

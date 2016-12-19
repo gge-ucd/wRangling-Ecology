@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Species Area Relationship 1 &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page">
+  <h2 class="page-topic">Higher Order Functions</h2>
+  <h1 class="page-title">Species Area Relationship 1</h1>
+  <br>
+  <p>The species-area relationship characterizes the relationship between the
+the number of species observed at a site and the area being sampled.
+This relationship is used widely in ecology and conservation biology for
+tasks such as estimating the location of biodiversity hotspots to
+prioritize for conservation.</p>
+
+<p>Unfortunately there is no consensus on the form of the equation that
+best describes the species-area relationship. This means that any
+estimate of species richness depends on the choice of model. Most of the
+models have roughly equivalent statistical support and we are going to
+be making predictions for regions where there is no data so we can’t
+determine the best model statistically. Instead we are going to take a
+consensus approach where we estimate the species richness using all
+possible models and then use the average prediction as our best
+estimate.</p>
+
+<p>We are going to deal with 5 models today (<em>which is already kind of a
+lot</em>), but according to some authors there are as many as 20 reasonable
+models for the species-area relationship, so we’ll want to make our code
+easily extensible. The five models we will work with are those defined
+by Dengler and Oldeland (2010).</p>
+
+<ul>
+  <li>Power: S = b<sub>0</sub> * A<sup>b<sub>1</sub></sup></li>
+  <li>Power-quadratic: S = 10<sup>(b<sub>0</sub> + b<sub>1</sub> * log(A) + b<sub>2</sub> * log(A)<sup>2</sup>)</sup></li>
+  <li>Logarithmic: S = b<sub>0</sub> + b<sub>1</sub> * log(A)</li>
+  <li>Michaelis-Menten: S = b<sub>0</sub> * A / (b<sub>1</sub> + A)</li>
+  <li>Lomolino: S = b<sub>0</sub> / (1 + b<sub>1</sub><sup>log(b<sub>2</sub>/A)</sup>)</li>
+</ul>
+
+<p>All logarithms are base 10. The parameters for each model are available
+below, along with the areas at which we wish to predict species
+richness. Each sublist contains the parameters for one model in the
+order given above. All models 
+contain b<sub>0</sub> and b<sub>1</sub>, but only the Power-quadratic and Lomolino models contain the 
+third parameter b<sub>2</sub>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sar_parameters = [[20.81, 0.1896], [1.35, 0.1524, 0.0081],
+                  [14.36, 21.16], [85.91, 42.57],
+				  [1082.45, 1.59, 390000000]]
+
+areas = [1, 5.2, 10.95, 152.3, 597.6, 820, 989.8, 1232.5, 15061]
+</code></pre>
+</div>
+
+<p>These can be cut and paste into your code. Alternatively, if you’re looking for
+a more realistic challenge you can import the related <code class="highlighter-rouge">csv</code> files for
+<a href="/wRangling-Ecology/data/sar-model-data.csv">the parameters</a> and <a href="/wRangling-Ecology/data/sar-areas.csv">the areas</a>
+directly from the web. Dealing with extracting the data you need from a standard
+<code class="highlighter-rouge">csv</code> import will be a little challenging, but you’ll learn a lot (and you can
+always solve the main problem first and then go back and solve the import step
+later; which might well be what an experienced programmer would do in this
+situtation).</p>
+
+<p>Write a script that calculates the richness predicted by each model for each
+area, and exports the results to a <code class="highlighter-rouge">csv</code> file with the first column containing 
+the area for the prediction and the second column containing the mean predicted
+richness for that area. To make this easily extensible you will want to write a
+function that defines each of the different species-area models (5 functions
+total) and then use higher order functions to call those functions. Depending on
+how you solve the problem you may find
+<a href="http://docs.python.org/library/functions.html#zip">zip</a> and
+<a href="http://www.technovelty.org/code/python/asterisk.html">Python’s use of asterisks</a>
+handy.</p>
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Packaging &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Packaging</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <h2 id="basic-packaging">Basic Packaging</h2>
+<p>Add a file named <code class="highlighter-rouge">setup.py</code> to your project directory.
+Users can then install the package using</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>python setup.py install
+</code></pre>
+</div>
+
+<p>from the command line.</p>
+
+<p>This file contains metadata about the project. The simplest <code class="highlighter-rouge">setup.py</code> file possible is:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>from setuptools import setup, find_packages
+
+setup(
+      name='mymodule',
+      version='0.1',
+      py_modules = ['ultimate_answer']
+	  )
+</code></pre>
+</div>
+
+<h3 id="example">Example</h3>
+
+<p>Create a simple .py file called <code class="highlighter-rouge">ultimate_answer.py</code> that prints:</p>
+
+<p><em>The answer to life the universe and everything is 42</em></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>print "The answer to life the universe and everything is 42"
+</code></pre>
+</div>
+
+<ul>
+  <li>If we try to import this module from anywhere other than it’s directory,
+Python can’t find it.</li>
+  <li>But if we add a <code class="highlighter-rouge">setup.py</code> file and use it to install the package, then it
+can be used from anywhere.</li>
+</ul>
+
+<p>```
+from setuptools import setup, find_packages</p>
+
+<p>setup(
+      name=’ultimate_answer’,
+      version=’0.1’,
+      py_modules = [‘ultimate_answer’]
+	  )</p>
+
+<p>Now run</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>python setup.py install
+</code></pre>
+</div>
+
+<h2 id="setuptools">Setuptools</h2>
+
+<p>This works great for simple modules, but real modules have dependencies,
+and their modules have dependencies, and we’d have to install them all one at a
+time. Instead, we can automate this using our <code class="highlighter-rouge">setup.py</code> file.</p>
+
+<p>Python keeps an online repository of packages and running <code class="highlighter-rouge">easy_install</code> or
+<code class="highlighter-rouge">pip</code> will search the repository for the package you want and install it
+automatically while handling any dependencies.</p>
+
+<p><strong>NEEDS EXAMPLE</strong></p>
+
+<h2 id="command-line-programs">Command line programs</h2>
+
+<p>We can make our Python programs run from anywhere on the command line with some relatively minor modifications to ultimate_answer.py:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def main():
+    print "The answer to life the universe and everyting is 42"
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+</div>
+
+<p>And setup.py:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>from setuptools import setup
+
+setup(name='ultimate_answer',
+    version='0.1',
+    py_modules = ['ultimate_answer'],
+    entry_points={'console_scripts': ['ult_ans = ultimate_answer:main']})
+</code></pre>
+</div>
+
+<h2 id="creating-executable-programs">Creating executable programs</h2>
+
+<p>We can also create versions of our programs that are self-contained executable programs.</p>
+
+<h3 id="windows">Windows</h3>
+
+<ol>
+  <li>Install the py2exe module</li>
+  <li>Run <code class="highlighter-rouge">python setup.py install</code></li>
+  <li>Run <code class="highlighter-rouge">python setup.py py2exe</code></li>
+</ol>
+
+<p>This will create a .exe file that can be run on any Windows computer,
+no Python or modules required.</p>
+
+<h3 id="example-1">Example</h3>
+
+<ol>
+  <li>Download pythonpy</li>
+  <li>Download setup2.py</li>
+  <li>Install</li>
+</ol>
+
+<h2 id="package-structure">Package structure</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package/
+    __init__.py
+    module1.py
+    subpackage/
+        __init__.py
+        module2.py
+
+import package.module1
+from package.subpackage import module2
+from package.subpackage.module2 import name
+</code></pre>
+</div>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

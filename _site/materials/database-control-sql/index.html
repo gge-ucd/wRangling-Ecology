@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Database Control &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Database Control</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <blockquote>
+  <p>Open Excel spreadsheet. Fill in a couple of columns.</p>
+</blockquote>
+
+<blockquote>
+  <p>Open SQLite Manager, if it is not already open.</p>
+</blockquote>
+
+<h3 id="database-control">Database Control</h3>
+
+<ul>
+  <li>There are many ways to add and modify data in a database management system.
+    <ul>
+      <li>Enter the data into another program (e.g., a spreadsheet) and import it to SQLite.</li>
+      <li>Get the data from somewhere and import it.
+        <ul>
+          <li><em>Though, data isn’t always ready to import into a database</em></li>
+        </ul>
+      </li>
+      <li>Enter the data directly.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="enter-the-data-into-another-program">Enter the data into another program</h3>
+
+<ul>
+  <li>Quality Assurance in Excel
+    <ul>
+      <li>Select column.</li>
+      <li>On the <code class="highlighter-rouge">Data</code> menu tab, select <code class="highlighter-rouge">Data Validation</code>.</li>
+      <li><code class="highlighter-rouge">Settings</code> tab
+        <ul>
+          <li><code class="highlighter-rouge">Allow:</code> selects type of data.</li>
+          <li><code class="highlighter-rouge">Data:</code> selects condition of value inputs
+            <ul>
+              <li><code class="highlighter-rouge">Value:</code></li>
+              <li><code class="highlighter-rouge">Minimum:</code></li>
+              <li><code class="highlighter-rouge">Maximum:</code></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">Input Message</code> tab
+        <ul>
+          <li>Show input message when cell is selected for entry.</li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">Error Alert</code> tab
+        <ul>
+          <li><code class="highlighter-rouge">Style:</code> controls response to invalid input value
+            <ul>
+              <li><code class="highlighter-rouge">Stop</code></li>
+              <li><code class="highlighter-rouge">Warning</code></li>
+              <li><code class="highlighter-rouge">Information</code></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Qaqc-data-entry-validation-in-excel-SQL/">Exercise 1 - Data entry validation in Excel</a>.</p>
+</blockquote>
+
+<h3 id="import-existing-data">Import existing data</h3>
+
+<blockquote>
+  <p>Walk through <a href="/wRangling-Ecology/exercises/Database-control-importing-data-SQL">Exercise 2 - Importing Data</a>, Tasks 1-10.</p>
+</blockquote>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Database-control-importing-data-SQL">Exercise 2 - Importing Data</a>, Task 11.</p>
+</blockquote>
+
+<h3 id="enter-the-data-directly">Enter the data directly</h3>
+
+<ul>
+  <li>Create a new table by clicking on <code class="highlighter-rouge">Create Table</code> in the <code class="highlighter-rouge">Table</code> dropdown menu.</li>
+  <li>Fill in <code class="highlighter-rouge">Table Name:</code></li>
+  <li>Complete the <code class="highlighter-rouge">Define Columns</code> section.
+    <ul>
+      <li>Fill in <code class="highlighter-rouge">Column Names</code>.</li>
+      <li>Choose <code class="highlighter-rouge">Data Type</code>.</li>
+      <li>Choose toggle options.
+        <ul>
+          <li><code class="highlighter-rouge">Primary Key?</code> and <code class="highlighter-rouge">Autoinc?</code></li>
+          <li><code class="highlighter-rouge">Allow Null?</code></li>
+          <li><code class="highlighter-rouge">Unique?</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Click <code class="highlighter-rouge">OK</code>.</li>
+  <li>Click <code class="highlighter-rouge">Yes</code>.</li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Database-control-creating-tables-SQL/">Exercise 3 - Creating Tables</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>Show students the SQLite Manager <code class="highlighter-rouge">Browse &amp; Search</code> tab.</p>
+</blockquote>
+
+<ul>
+  <li>Add new records by clicking on the <code class="highlighter-rouge">Add</code> button from the <code class="highlighter-rouge">Browse &amp; Search</code> panel.</li>
+  <li>Check <code class="highlighter-rouge">Table Name:</code>.</li>
+  <li><code class="highlighter-rouge">Enter Field Values</code>.</li>
+  <li>Click <code class="highlighter-rouge">OK</code>.</li>
+  <li>Click <code class="highlighter-rouge">OK</code>.</li>
+  <li>Add another entry or click <code class="highlighter-rouge">Cancel</code>.</li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Database-control-adding-records-SQL/">Exercise 4 - Adding Records</a>.</p>
+</blockquote>
+
+<h3 id="modifying-existing-records">Modifying existing records</h3>
+
+<ul>
+  <li>Select record on <code class="highlighter-rouge">Browse &amp; Search</code> panel.</li>
+  <li>Click on the <code class="highlighter-rouge">Edit</code> button.</li>
+  <li>Modify record in <code class="highlighter-rouge">Enter Field Values</code>.</li>
+  <li>Click <code class="highlighter-rouge">OK</code>.</li>
+  <li>Click <code class="highlighter-rouge">OK</code>.</li>
+  <li>Click <code class="highlighter-rouge">Cancel</code>.</li>
+</ul>
+
+<h3 id="deleting-records">Deleting records</h3>
+
+<ul>
+  <li>Select record on <code class="highlighter-rouge">Browse &amp; Search</code> panel.</li>
+  <li>Click on the <code class="highlighter-rouge">Delete</code> button.</li>
+  <li>Click <code class="highlighter-rouge">Yes</code>.</li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Database-control-updating-records-SQL/">Exercise 5 - Updating Records</a>.</p>
+</blockquote>
+
+<h3 id="deleting-a-table">Deleting a table</h3>
+
+<ul>
+  <li>Click on <code class="highlighter-rouge">Drop Table</code> in the <code class="highlighter-rouge">Table</code> dropdown menu.</li>
+  <li>Click <code class="highlighter-rouge">Yes</code>.</li>
+</ul>
+
+<h3 id="sql---structured-query-language">SQL - structured query language</h3>
+
+<ul>
+  <li>The language of databases</li>
+  <li>Even graphical tools like Microsoft Access write SQL for you behind the scenes</li>
+</ul>
+
+<blockquote>
+  <p>Show students the SQLite Manager <code class="highlighter-rouge">Execute SQL</code> tab.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT * FROM Experiment;
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Assign remaining exercises.</p>
+</blockquote>
+
+
+</div>
+
+    </div>
+
+  </body>
+</html>

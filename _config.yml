@@ -14,7 +14,8 @@ description:      'Using data science tools for exploration, analysis, and resea
 url:              http://gge-ucd.github.io/wRangling-Ecology
 baseurl:          /wRangling-Ecology
 email:            rapeek@ucdavis.edu
-feedbackurl:      https://docs.google.com/forms/d/e/1FAIpQLSeVawmCytz3b03YSIGRBwJMl463SkLFHDQUO0e0GQ3xIsKRTw/viewform
+feedbackurl:       https://docs.google.com/forms/d/e/1FAIpQLSeVawmCytz3b03YSIGRBwJMl463SkLFHDQUO0e0GQ3xIsKRTw
+
 author:
   name:           'Ryan Peek'
   url:            https://ryanpeek.github.io

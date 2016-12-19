@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Version Control &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Version Control</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <blockquote>
+  <p>Before class</p>
+
+  <ul>
+    <li>Remind students to setup a GitHub account and email the instructor their  username.</li>
+    <li>Setup repo with students’ username and respond with link to repo in email.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>For class</p>
+
+  <ul>
+    <li>Download <a href="https://ndownloader.figshare.com/files/2292172"><code class="highlighter-rouge">surveys.csv</code></a>.</li>
+    <li>Arrange to have a teaching partner attend class and <code class="highlighter-rouge">push</code> the following
+code for the ‘Collaborating’ demo.</li>
+  </ul>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>get_size_class_ts_data &lt;- function(df){
+  # Convert individual data to time-series data for each of a set
+  # of size classes
+  # Input: data frame with a year column for time
+  #        and a size_class column
+  ts_data &lt;-
+    df %&gt;%
+    group_by(year, size_class) %&gt;%
+    summarize(counts = n())
+  return(ts_data)
+}
+
+plot_ts_data &lt;- function(df){
+  # Plot time-series data by size class
+  # Input: data frame with year, size_class, and counts columns
+  ggplot(df, aes(x = year, y = counts, color = size_class)) +
+    geom_line()
+}
+</code></pre>
+</div>
+
+<blockquote>
+  <ul>
+    <li>Open the following links in a browser and zoom in to make the images fill
+the screen.</li>
+  </ul>
+
+  <blockquote>
+    <ul>
+      <li><a href="http://www.phdcomics.com/comics/archive.php?comicid=1531">Like this?</a></li>
+      <li><a href="http://www.phdcomics.com/comics/archive.php?comicid=1323">Or like this?</a></li>
+    </ul>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Students need 2 projects to follow along with live coding.</strong>
+<strong>Must switch projects when shifting from live coding to exercises</strong></p>
+</blockquote>
+
+<h2 id="introduction">Introduction</h2>
+
+<h3 id="motivation">Motivation</h3>
+
+<ul>
+  <li>Who has a directory on their computer with a bunch of filenames
+    <ul>
+      <li><a href="http://www.phdcomics.com/comics/archive.php?comicid=1531">Like this?</a></li>
+      <li><a href="http://www.phdcomics.com/comics/archive.php?comicid=1323">Or like this?</a></li>
+    </ul>
+  </li>
+  <li>Get rid of messy folders and track changes to things like
+data files and code in a more manageable way.</li>
+</ul>
+
+<h3 id="benefits-of-version-control">Benefits of version control</h3>
+
+<ul>
+  <li>Track changes (<em>but better</em>)
+    <ul>
+      <li>Tracks every change ever made in groups called commits
+        <ul>
+          <li>Every commit stores the full state of all of your files at that time</li>
+        </ul>
+      </li>
+      <li>Never lose anything
+        <ul>
+          <li>Revert or restore to any commit</li>
+          <li>Easily unbreak your code/data/manuscript</li>
+          <li>No more file name changes</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Collaboration
+    <ul>
+      <li>Work on things simultaneously
+        <ul>
+          <li>See what changes others have made</li>
+          <li>Everyone has the most recent version of everything</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="version-control-using-rstudio--git">Version control using RStudio &amp; Git</h2>
+
+<h3 id="getting-started">Getting started</h3>
+
+<ol>
+  <li>File -&gt; New Project -&gt; New Directory -&gt; Empty Project</li>
+  <li>Choose where to put your project.</li>
+  <li>Select <code class="highlighter-rouge">Create a git repository</code>.</li>
+  <li>Check to make sure you have a <code class="highlighter-rouge">Git</code> tab in the upper right window.</li>
+</ol>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Version-control-basic-set-up-git-R/">Exercise 1 - Set-up Git</a>.</p>
+</blockquote>
+
+<h4 id="tell-git-who-you-are">Tell git who you are</h4>
+
+<ul>
+  <li>Click on <i class="fa fa-gear"></i> <code class="highlighter-rouge">More</code></li>
+  <li>Select <code class="highlighter-rouge">Shell</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git config --global user.name 'Ethan White'
+git config --global user.email 'ethan@weecology.org'
+git config --global --list
+</code></pre>
+</div>
+
+<h3 id="first-commits">First commits</h3>
+
+<p><em>The following example uses the code from the problem decomposition lecture.</em></p>
+
+<h4 id="commit-data">Commit data</h4>
+
+<ul>
+  <li>Download the data file <a href="https://ndownloader.figshare.com/files/2292172"><code class="highlighter-rouge">surveys.csv</code></a> to your project directory.</li>
+  <li>Git -&gt; Select <code class="highlighter-rouge">surveys.csv</code>.</li>
+  <li>Commit with message.
+    <ul>
+      <li><code class="highlighter-rouge">"Add survey data of different sized rodents"</code></li>
+    </ul>
+  </li>
+  <li>History:
+    <ul>
+      <li>One commit</li>
+      <li>Changes too large to see</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="commit-r-script">Commit R script</h4>
+
+<ul>
+  <li>Create a new file.
+    <ul>
+      <li><code class="highlighter-rouge">large-small-ts-analysis.R</code></li>
+    </ul>
+  </li>
+  <li>Add some code to the file.
+    <ul>
+      <li><code class="highlighter-rouge">get_data()</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>get_data &lt;- function() {
+  data &lt;- read.csv("surveys.csv")
+  return(data)
+}
+
+data &lt;- get_data()
+</code></pre>
+</div>
+
+<ul>
+  <li>Git -&gt; Select <code class="highlighter-rouge">large-small-ts-analysis.R</code>.
+    <ul>
+      <li>Changes in staged files will be included in next commit.</li>
+      <li>Can also see changes by selecting <code class="highlighter-rouge">Diff</code></li>
+    </ul>
+  </li>
+  <li>Commit with message.
+    <ul>
+      <li><code class="highlighter-rouge">"Start script comparing dynamics of different sized rodents"</code></li>
+    </ul>
+  </li>
+  <li>History:
+    <ul>
+      <li>Two commits</li>
+      <li>See what changes where made to <code class="highlighter-rouge">large-small-ts-analysis.R</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="building-a-history">Building a history</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">large-small-ts-analysis.R</code> doesn’t currently show on the <code class="highlighter-rouge">Git</code> tab
+    <ul>
+      <li>No saved changes since last commit</li>
+    </ul>
+  </li>
+  <li>Add some more code to <code class="highlighter-rouge">large-small-ts-analysis.R</code>.
+    <ul>
+      <li><code class="highlighter-rouge">get_size_class()</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>get_size_class &lt;- function(weight) {
+  if (weight &gt; 50){
+    size_class = "large"
+  } else {
+    size_class = "small"
+  }
+  return(size_class)
+}
+</code></pre>
+</div>
+
+<ul>
+  <li>Save <code class="highlighter-rouge">large-small-ts-analysis.R</code>.</li>
+  <li>Now we see the file on the <code class="highlighter-rouge">Git</code> tab.
+    <ul>
+      <li><code class="highlighter-rouge">M</code> indicates that it’s been modified.</li>
+    </ul>
+  </li>
+  <li>To commit these changes, we need to stage the file.
+    <ul>
+      <li>Check the box next to <code class="highlighter-rouge">large-small-ts-analysis.R</code>.</li>
+    </ul>
+  </li>
+  <li>Commit with message.
+    <ul>
+      <li><code class="highlighter-rouge">"Add function for determining size class"</code></li>
+    </ul>
+  </li>
+  <li>History:
+    <ul>
+      <li>Three commits</li>
+      <li>Each <code class="highlighter-rouge">large-small-ts-analysis.R</code> commit shows the additions we made in
+that commit.</li>
+    </ul>
+  </li>
+  <li>Modify the code in <code class="highlighter-rouge">large-small-ts-analysis.R</code>
+    <ul>
+      <li>Add <code class="highlighter-rouge">threshold</code> to <code class="highlighter-rouge">if()</code> in <code class="highlighter-rouge">get_size_class()</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>get_size_class &lt;- function(weight, threshold){
+  if (weight &gt; threshold){
+    size_class = "large"
+  } else {
+    size_class = "small"
+  }
+  return(size_class)
+}
+</code></pre>
+</div>
+
+<ul>
+  <li>Stage -&gt; Commit
+    <ul>
+      <li>Now we see both red and green sections.
+        <ul>
+          <li>Green for lines that have been added</li>
+          <li>Red for lines that have been deleted</li>
+        </ul>
+      </li>
+      <li>Git works line by line.
+        <ul>
+          <li>The previous version of the line is shown as deleted.</li>
+          <li>The new version of the line is shown as added.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Version-control-basic-first-commit-R/">Exercise 2 - First Commit</a>,
+<a href="/wRangling-Ecology/exercises/Version-control-basic-importing-data-R/">Exercise 3 - Importing Data</a>,
+and <a href="/wRangling-Ecology/exercises/Version-control-basic-commit-multiple-files-R/">Exercise 4 - Commit Multiple Files</a>.</p>
+</blockquote>
+
+<h3 id="git-as-a-time-machine">Git as a time machine</h3>
+
+<h4 id="experiment-with-impunity">Experiment with impunity</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>get_size_class &lt;- function(weight, threshold){
+  if (weight &gt; threshold){
+    size_class = 1
+  } else {
+    size_class = 2
+  }
+  return(size_class)
+}
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">Save</code> and show changes are staged</li>
+  <li>
+    <p><i class="fa fa-gear"></i> <code class="highlighter-rouge">More</code> -&gt; <code class="highlighter-rouge">Revert</code> -&gt; <code class="highlighter-rouge">Yes</code></p>
+  </li>
+  <li>Get previous state of a file
+    <ul>
+      <li><code class="highlighter-rouge">History</code> -&gt; select commit -&gt; <code class="highlighter-rouge">View file @ ...</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="delete-with-impunity">Delete with impunity</h4>
+
+<ul>
+  <li>Close the upper left window with the <code class="highlighter-rouge">large-small-ts-analysis.R</code>.</li>
+  <li>Choose the <code class="highlighter-rouge">File</code> tab in the lower right window.</li>
+  <li>Select <code class="highlighter-rouge">large-small-ts-analysis.R</code> -&gt; <code class="highlighter-rouge">Delete</code> -&gt; <code class="highlighter-rouge">Yes</code></li>
+  <li><i class="fa fa-gear"></i> <code class="highlighter-rouge">More</code> -&gt; <code class="highlighter-rouge">Revert</code> -&gt; <code class="highlighter-rouge">Yes</code></li>
+</ul>
+
+<h2 id="github-remotes">GitHub Remotes</h2>
+
+<blockquote>
+  <p>Draw diagram to link local machine with GitHub <code class="highlighter-rouge">origin</code>.</p>
+</blockquote>
+
+<ul>
+  <li>So far we’ve worked with a local <code class="highlighter-rouge">Git</code> repository.</li>
+  <li>One of the big benefits of version control is easy collaboration.</li>
+  <li>To do this, we synchronize our local changes with a <code class="highlighter-rouge">remote</code> repository.</li>
+  <li>We’ll use GitHub.
+    <ul>
+      <li>By far the most popular hosted version control site</li>
+      <li>Public and private hosted repositories</li>
+      <li>Private free for students and academics
+        <ul>
+          <li>https://education.github.com/</li>
+          <li>For the assignment, we’ll use private repositories that I’ll make for you.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="add-a-remote">Add a remote</h3>
+
+<ul>
+  <li>Make a new <code class="highlighter-rouge">Git</code> repository ( <em>Students should have been assigned one.</em> )</li>
+  <li><strong>Add helper as collaborator</strong></li>
+  <li>Copy remote adding code from GitHub.
+    <ul>
+      <li><code class="highlighter-rouge">git remote add origin https://github.com/user/repo.git</code></li>
+    </ul>
+  </li>
+  <li><i class="fa fa-gear"></i> <code class="highlighter-rouge">More</code> -&gt; Shell</li>
+  <li>Paste lines from GitHub -&gt; Enter</li>
+  <li>See files on GitHub</li>
+  <li>Show browsing repo in past</li>
+</ul>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Version-control-basic-adding-a-remote-R/">Exercise 5 - Adding a Remote</a>.</p>
+</blockquote>
+
+<h3 id="push-to-a-remote">Push to a remote</h3>
+
+<ul>
+  <li>Add <code class="highlighter-rouge">add_size_classes()</code>.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>add_size_classes &lt;- function(df) {
+  # Add size class data to a data frame
+  # Input: data frame with weight column containing size information
+  data_size_class &lt;-
+    df %&gt;%
+    na.omit() %&gt;%
+    rowwise() %&gt;%
+    mutate(size_class = get_size_class(weight, 50))
+  return(data_size_class)
+}
+</code></pre>
+</div>
+
+<ul>
+  <li>Commit
+    <ul>
+      <li>Show on local, not remote</li>
+    </ul>
+  </li>
+  <li>Push
+    <ul>
+      <li>Show on remote</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Draw push/pull on diagram on board</p>
+</blockquote>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Version-control-basic-pushing-changes-R/">Exercise 6 - Pushing Changes</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>Have students email a link to their repo to their instructor once they have
+finished Pushing Changes</p>
+
+  <p>The instructor should then commit the following code to their repo</p>
+
+  <p>get_size_class &lt;- function(ear_length){
+  # Calculate the size class for one or more ear lengths
+  ear_lengths &lt;- ifelse(ear_length &gt; 10, “large”, “small”)
+  return(ear_lengths)
+}</p>
+
+  <p>With the commit message:
+Add function for determining ear length class</p>
+</blockquote>
+
+<h3 id="collaborating">Collaborating</h3>
+
+<ul>
+  <li>Big advantage to remotes is easy collaboration</li>
+  <li>Avoids emailing files and shared folders where you are never sure if you
+actually have the most recent version</li>
+  <li>Makes it easy to see what collaborators have done</li>
+  <li>Automatically combines non-overlapping changes</li>
+  <li>
+    <p>While I’ve been talking, one of my collaborators has finished adding the other
+functions we need.</p>
+  </li>
+  <li>Pull</li>
+  <li>Show history</li>
+  <li>Run code</li>
+</ul>
+
+<blockquote>
+  <p>Show an example of a working repository
+Show examples of pull requests</p>
+</blockquote>
+
+<blockquote>
+  <p>Do <a href="/wRangling-Ecology/exercises/Version-control-basic-pulling-and-pushing-R/">Exercise 7 - Pulling and Pushing</a>.</p>
+</blockquote>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

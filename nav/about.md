@@ -21,7 +21,7 @@ Contact Us
   <i class="fa fa-github fa-fw"></i> On GitHub</a> |
   <a href="mailto:{{ site.email }}">
   <i class="fa fa-envelope fa-fw"></i> Via Email</a>
-: About Course Website: <a href="https://github.com/ryanpeek/semester-biology">
+: About Course Website: <a href="https://github.com/gge-ucd/wRangling-Ecology">
   <i class="fa fa-github fa-fw"></i> On GitHub</a> |
   <a href="mailto:rapeek@ucdavis.edu">
   <i class="fa fa-envelope fa-fw"></i> Via Email</a>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Introduction to Databases &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Introduction to Databases</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <blockquote>
+  <p>Remember to</p>
+
+  <ul>
+    <li>Remind students to install Firefox.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>Walk students through installing SQLite Manager Add-on.</p>
+</blockquote>
+
+<h3 id="why-use-a-database-management-system">Why use a database management system</h3>
+
+<ul>
+  <li>Simple and effective software for storing, managing and retrieving information</li>
+  <li>Widely used to store and maintain lots of existing data</li>
+  <li>Fast processing across large amounts of data
+    <ul>
+      <li>Out-of-memory and remote processing for really large data</li>
+      <li>Can handle spatially explicit queries (GIS)</li>
+    </ul>
+  </li>
+  <li>Improve quality control of data entry
+    <ul>
+      <li>Set valid data type and value constraints.</li>
+      <li>Use data entry forms in  Excel, Access, Filemaker, etc.</li>
+      <li>Use quality control scripts to test entered data.</li>
+    </ul>
+  </li>
+  <li>Concepts are core to understanding data manipulation in other languages</li>
+</ul>
+
+<h3 id="database-management-systems">Database management systems</h3>
+
+<ul>
+  <li>We will be working with ‘Relational Databases’.
+    <ul>
+      <li>The concepts of relational database querying are core to understanding 
+how to do similar things using programming languages such as R or Python.</li>
+    </ul>
+  </li>
+  <li>We will primarily use SQLite.
+    <ul>
+      <li>Simple to use</li>
+      <li>Almost no work to set up</li>
+      <li>Stored in single file</li>
+      <li>But, there are lots of alternatives
+        <ul>
+          <li>Access - commonly used, GUI</li>
+          <li>PostgreSQL - fast/powerful, lots of users</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="relational-databases">Relational databases</h3>
+
+<ul>
+  <li>Data is stored in tables.
+    <ul>
+      <li>One table per type of data</li>
+      <li>Tables can be linked together to combine information.</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Open SQLite Manager
+Walk through importing surveys table</p>
+</blockquote>
+
+<ol>
+  <li>Download <a href="https://ndownloader.figshare.com/files/2292172">https://ndownloader.figshare.com/files/2292172</a></li>
+  <li><code class="highlighter-rouge">Database</code> -&gt; <code class="highlighter-rouge">New Database</code> -&gt; name <code class="highlighter-rouge">portal_mammals.sqlite</code></li>
+  <li><code class="highlighter-rouge">Import</code></li>
+  <li><code class="highlighter-rouge">Select File</code> and navigate to raw data</li>
+  <li>Select <code class="highlighter-rouge">csv</code> &amp; check <code class="highlighter-rouge">First row contains column names</code></li>
+  <li><code class="highlighter-rouge">OK</code> to modify the data</li>
+  <li>Name table <code class="highlighter-rouge">surveys</code></li>
+  <li>
+    <p>Select data types</p>
+
+    <ul>
+      <li>Fields in databases have types that define the kind of data they contain.</li>
+      <li>Each field/column can only have one type.</li>
+      <li>We have to define the types in advance.</li>
+      <li>Types include
+        <ul>
+          <li>Integer</li>
+          <li>Text</li>
+          <li>Decimal/Double/Real/Float</li>
+        </ul>
+      </li>
+      <li>Types are highly configurable for when space is limiting
+        <ul>
+          <li>Maximum value of integers</li>
+          <li>Maximum length of text</li>
+          <li>How many values before and after the decimal place</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Select <code class="highlighter-rouge">record_id</code> as the <code class="highlighter-rouge">Primary Key</code> and click <code class="highlighter-rouge">OK</code>.</p>
+
+    <ul>
+      <li>Every table “needs” a column (or set of columns) that is unique across
+records/row.</li>
+      <li>This is called the <code class="highlighter-rouge">Primary Key</code>.</li>
+      <li>The easiest way to do this is to use an <code class="highlighter-rouge">INTEGER</code> that increments every time a
+new record is added.</li>
+      <li>Many databases that you import will already have a field like this.</li>
+    </ul>
+  </li>
+</ol>
+
+<ul>
+  <li>Each row contains a single record.
+    <ul>
+      <li>A single observation or data point</li>
+    </ul>
+  </li>
+  <li>Each column or field contains a single attribute.
+    <ul>
+      <li>A single type of information</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Show students the</p>
+
+  <ul>
+    <li>objects panel with <code class="highlighter-rouge">Tables</code> and <code class="highlighter-rouge">Views</code>.</li>
+    <li><code class="highlighter-rouge">Browse &amp; Search</code> tab.</li>
+    <li>Show students the <code class="highlighter-rouge">Structure</code> tab.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>We’ve just done most of Exercise 1
+Do <a href="/wRangling-Ecology/exercises/Database-control-importing-data-SQL">Exercise 1.11 - Importing Data</a>.</p>
+</blockquote>
+
+<h3 id="queries-separate-from-data">Queries separate from data</h3>
+
+<ul>
+  <li>Data is separate from manipulations of the data</li>
+  <li>Tables - store the data</li>
+  <li>Queries - store questions about the data
+    <ul>
+      <li>If we update the data, the query asks the same question of the new data.</li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+    </div>
+
+  </body>
+</html>

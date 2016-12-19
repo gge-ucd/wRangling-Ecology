@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Using Modules &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68320080-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Using Modules</h1>
+  <h2 class="page-subtitle">Notes</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <h2 id="definition">Definition</h2>
+
+<p>Modules/packages/libraries are collections of related functions (and other
+things). They given programming languages a way to store code in separate
+pieces.</p>
+
+<p>Some languages make a lot of functionality available without importing modules
+(like R) and others keep most functionality in separate modules (like
+Python). So, in Python, we need to import a module to even do fairly basic math.</p>
+
+<h2 id="importing-modules">Importing modules</h2>
+
+<p>To load or import modules in Python we use <code class="highlighter-rouge">import</code>.</p>
+
+<p><code class="highlighter-rouge">&gt;&gt;&gt; import math</code></p>
+
+<p>This loads the functions from the <code class="highlighter-rouge">math</code> module into memory.</p>
+
+<h2 id="using-functions-in-modules">Using functions in modules</h2>
+
+<p>By default, if we want to use the functions in a module in Python we say which
+module the function is located in by listing the module name, followed by a
+period (referred to as a dot), followed by the function name.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; import math
+&gt;&gt;&gt; math.sqrt(16)
+4
+</code></pre>
+</div>
+
+<p>If we just use the name of the function we will get an error.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; sqrt(16)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+&lt;ipython-input-2-a69d70ec25ee&gt; in &lt;module&gt;()
+----&gt; 1 sqrt()
+
+NameError: name 'sqrt' is not defined
+</code></pre>
+</div>
+
+<p>The module name is referred to as a namespace.</p>
+
+<h2 id="importing-functions-without-namespacing">Importing functions without namespacing</h2>
+
+<p>You can import all of the contents of a module without namespacing.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; from math import sqrt
+&gt;&gt;&gt; sqrt(16)
+4
+</code></pre>
+</div>
+
+<p>But this is generally a bad idea. The reason is that if we import several
+modules this way and they have functions with the same name, then it will be
+very difficult to tell which function we are actually using. This can cause very
+difficult to track down bugs. Since we can’t reasonably know the names of every
+function in every module/package namespaces keep us safe.</p>
+
+<h2 id="importing-specific-functions-without-namespacing">Importing specific functions without namespacing</h2>
+
+<p>We can import specific functions without namespacing by explicitly listing out
+the functions we want to import.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; from math import log
+&gt;&gt;&gt; log(20)
+2.995732273553991
+</code></pre>
+</div>
+
+<h2 id="aliases">Aliases</h2>
+
+<p>We can also give a module a shorter and easier to type name.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; import math as m
+&gt;&gt;&gt; m.log10(10)
+1.0
+</code></pre>
+</div>
+
+<p>There are several common aliases in use in scientific Python programming.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+</code></pre>
+</div>
+
+</div>
+
+    </div>
+
+  </body>
+</html>
