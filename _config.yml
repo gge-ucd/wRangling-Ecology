@@ -23,3 +23,11 @@ author:
 github:
   repo:           https://github.com/gge-ucd/wRangling-Ecology
   #               Be sure the 'Issues' feature is activated in 'Settings'
+
+# Exclude these files from production site
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - Vagrantfile
+  - .DS_Store
