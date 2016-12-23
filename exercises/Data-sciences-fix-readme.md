@@ -29,7 +29,7 @@ If you are new to Git and GitHub, click on the `README` link in the area that lo
 
 Go take possession of your **gge-ecl** private repository and have at it.
 
-__At the very least__, change `README.md` to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [Aggie Brickyard](http://aggiebrickyard.github.io).
+__At the very least__, change `README.md` to something like "This is the repository of Firstname Lastname," just to prove you have been there. Practice making a link, for example, to the [Aggie Brickyard](http://aggiebrickyard.github.io).
 
 Much better is to introduce yourself to the class; this page is private to our class only. Feel free to read up on Markdown and practice with some of the syntax. Put in a photo or a GIF!
 
@@ -40,9 +40,9 @@ Here's a [sample readme file](https://github.com/STAT545-UBC/STAT545-UBC.github.
 
 This is optional. If you are really struggling, skip it for now. But try!
 
-Polish and extend the R Markdown document started in class, render it to the `github_document` output format. Commit both the `.Rmd` and `.md` files and push them to GitHub.
+We'll talk about using RStudio in class a bit, and how to create an RMarkdown document. So, please polish and extend the R Markdown document started in class, render it to the `github_document` output format. Commit both the `.Rmd` and `.md` files and push them to GitHub.
 
-Give this a decent name, such as `hw01_gapminder.Rmd` (which will produce a companion file, `hw01_gapminder.md`).
+Give this a decent name, such as `hw01_intromarkdown.Rmd` (which will produce a companion file, `hw01_intromarkdown.md`).
 
 ### Report your process
 
@@ -53,7 +53,7 @@ Include a description of how you got the changes into `README.md` on GitHub.
   * Did you edit in the browser at github.com?
   * Did you pull, edit locally, save, commit, push to github.com?
 
-How did it all work for the R Markdown document?
+How did it all work for the RMarkdown document?
 
 You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Put this in your README. In a week or two, you can delete this bit.
 
@@ -64,7 +64,7 @@ Make sure you have:
  1. Pulled from your github repo already (Just good habit!)
  2. Saved all the files associated with your solution locally. Committed all those files to your local Git repository.
  3. Pushed the current state of your local repo to GitHub.
- 4. Open an issue, link to the latest commit, and tag an instructor:
+ 4. Open an issue, link to the latest commit, and tag your instructor:
    - Visit your GitHub repo in a web browser. Just above the file list, look for "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon.
    - Click the clipboard icon to copy the revision SHA to your clipboard.
    - Click on "Issues", then on "New Issue". Name the issue "Mark homework x of firstname-lastname", where x is the week of the quarter

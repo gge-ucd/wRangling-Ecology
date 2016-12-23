@@ -5,7 +5,7 @@ title: Acknowledgments
 
 #### Primary Contributors
 
-Course materials and website design have been primarily developed and implemented by [Ethan White](http://ethanwhite.org) and [Zachary Brym](http://zackbrym.weecology.org/), and adapted for use by [Ryan Peek](https://ryanpeek.github.io).
+This course and website has been developed by [Ethan White](http://ethanwhite.org) and [Zachary Brym](http://zackbrym.weecology.org/) as part of a [semester biology course](http://www.datacarpentry.org/semester-biology/). The course was integrated and adapted for use by [Ryan Peek](https://ryanpeek.github.io) for the quarter system, with additional exercises and material incorporated from Jenny Bryan's excellent [STAT545 course](http://stat545.com). Thanks to Jenny and Ethan for insight and advice. 
 
 #### Data Carpentry
 
