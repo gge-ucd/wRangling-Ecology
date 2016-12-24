@@ -4,11 +4,13 @@ element: notes
 title: Gitting Started
 ---
 
-This Lesson is following Jenny Bryan's Material (see [here](http://stat545.com/git08_claim-stat545-repo.html))
 
 ## Why Git?
 
-[Big Picture](http://happygitwithr.com/big-picture.html)
+Please read through this [**slide deck**](https://speakerdeck.com/alicebartlett/git-for-humans), and an overview of the [Big Picture](http://happygitwithr.com/big-picture.html)
+
+<sub>(The following lesson is adapted from Jenny Bryan's [course](http://stat545.com/git08_claim-stat545-repo.html))
+</sub>
 
 ### Prerequisites
 
@@ -50,3 +52,8 @@ I've added you to a private repository that belongs *only* to you. Other student
  - Pull from GitHub (I’m just trying to help you establish this habit...remind me to explain why).
  - Push to GitHub.
  - Repeat ad nauseum as you do your coursework.
+
+### See your Commit Messages
+
+ - See your commit messages Star Wars style:
+   - http://starlogs.net/
