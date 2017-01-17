@@ -29,4 +29,5 @@ title: Assignments
 ### SQL
 
 * [Introduction to Databases](sql-intro)
+* [Joins and Tidy Data](sql-joins)
 * [Database Structure and Joins](sql-joins)
