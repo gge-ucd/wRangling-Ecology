@@ -1,7 +1,7 @@
 ---
 layout: page
 element: assignment
-title: Data Science
+title: Data Science & Management
 language: R
 exercises: ['Fix Readme']
 ---
