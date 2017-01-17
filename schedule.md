@@ -1,8 +1,10 @@
 ---
 layout: page
 title: Assignment Schedule
-assignments: ['Data Science','Gitting Started'
-'Introduction to R and RStudio','Working with Data','Data Visualization','Programming Fundamentals 1','Programming Fundamentals 2','Knitr','Introduction to Databases','Working with Databases','Joins and Tidy Data', 'Putting It All Together']
+assignments: ['Data Science','Gitting Started','Introduction to R and RStudio',
+'Working with Data','Data Visualization','Programming Fundamentals 1',
+'Programming Fundamentals 2','Knitr','Introduction to Databases',
+'Working with Databases','Joins and Tidy Data', 'Putting It All Together']
 ---
 
 {% include assignments.html %}
