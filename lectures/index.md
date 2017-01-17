@@ -5,7 +5,7 @@ title: Lectures
 
 ### Git
 
-* [Happygit With R](R-Gitting-started)
+* [Happygit With R](R-gitting-started)
 * [Git with RStudio](R-git)
 
 ### R
@@ -19,7 +19,6 @@ title: Lectures
 * [`knitr`](R-knitr)
 * [Working with Spatial Data](R-spatial)
 * [Working with Databases](R-databases)
-* [Version Control Basics](R-git)
 * [Putting It All Together](R-capstone)
 
 ### SQL

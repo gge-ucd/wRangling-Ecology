@@ -4,7 +4,7 @@ title: Assignments
 ---
 
 ### Data Management
-* [Data Science & Management](r-data-science)
+* [Data Science](r-data-science)
 
 ### Git
 * [Git with R](r-git)
