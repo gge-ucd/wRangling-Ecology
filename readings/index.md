@@ -5,7 +5,7 @@ title: Readings
 
 ### Data Science & Management
 
-* [Data Science](Data-science)
+* [Data Science](R-data-science)
 
 ### R
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 element: reading
-title: Data Science
+title: Data Science & Management
 language: R
 ---
 
