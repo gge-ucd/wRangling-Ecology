@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Assignment Schedule
-assignments: ['Data Science', 'Version Control Basics', 'Joins and Tidy Data',
-'Introduction to R and RStudio', 'Working with Data', 'Data Visualization',
+assignments: ['Data Science','Gitting Started'
+'Introduction to R and RStudio','Joins and Tidy Data', 'Working with Data', 'Data Visualization',
 'Programming Fundamentals 1', 'Programming Fundamentals 2', 'Knitr','Introduction to Databases','Working with Databases', 'Putting
 It All Together']
 ---

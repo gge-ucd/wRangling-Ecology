@@ -8,6 +8,7 @@ title: Assignments
 
 ### Git
 * [Git with R](r-git)
+* [Gitting Started](r-gitting-started)
 
 ### R
 

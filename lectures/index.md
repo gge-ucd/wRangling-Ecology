@@ -5,7 +5,7 @@ title: Lectures
 
 ### Git
 
-* [Happygit With R](Gitting-started)
+* [Happygit With R](R-Gitting-started)
 * [Git with RStudio](R-git)
 
 ### R
