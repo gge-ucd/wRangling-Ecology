@@ -15,6 +15,7 @@ title: Assignments
 * [Introduction to R and RStudio](r-intro)
 * [Working with Data](r-data)
 * [Data Visualization](r-datavis)
+* [Web Data to Datetimes & Timeseries](r-datetimes)
 * [Programming Fundamentals 1](r-fundamentals-1)
 * [Programming Fundamentals 2](r-fundamentals-2)
 * [Working with Spatial Data](r-spatial)

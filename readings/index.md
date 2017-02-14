@@ -12,6 +12,7 @@ title: Readings
 * [Introduction to R and RStudio](R-intro)
 * [Working with Data](R-data)
 * [Data Visualization](R-datavis)
+* [Web Data to Datetimes & Timeseries](R-datetimes)
 * [Programming Fundamentals 1](R-fundamentals-1)
 * [Programming Fundamentals 2](R-fundamentals-2)
 * [Working with Spatial Data](R-spatial)
