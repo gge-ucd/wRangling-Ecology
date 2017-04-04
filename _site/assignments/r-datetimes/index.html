@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Web Data to Datetimes & Timeseries &middot; Data wRangling for Ecologists
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/poole.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/syntax.css">
+  <link rel="stylesheet" href="/wRangling-Ecology/public/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/wRangling-Ecology/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/wRangling-Ecology/public/favicon-2.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-89257505-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/wRangling-Ecology/">
+          Data wRangling for Ecologists
+        </a>
+      </h1>
+      <p class="lead">Using data science tools for exploration, analysis, and research</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/getting-started"><i class="fa fa-play fa-fw"></i> Getting Started</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/course-materials"><i class="fa fa-briefcase fa-fw"></i> Course Materials</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/schedule"><i class="fa fa-calendar fa-fw"></i> Schedule</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/nav/about"><i class="fa fa-user fa-fw"></i> About / Contact Us</a>
+      <a class="sidebar-nav-item" href="/wRangling-Ecology/in-class-feedback"><i class="fa fa-bullhorn fa-fw"></i> In-class Feedback</a>
+    </nav>
+
+    <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/wRangling-Ecology/public/cc-by-80x15.png" /></a></p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page-header">
+  <h1 class="page-title">Web Data to Datetimes & Timeseries</h1>
+  <h2 class="page-subtitle">Assignment</h2>
+  <hr width="75%">
+</div>
+
+<div class="page-content">
+  <h2 id="historical-c0sub2sub-record-from-vostok-ice-cores">Historical C0<sub>2</sub> Record from Vostok Ice Cores</h2>
+
+<p>How do we know the C0<sub>2</sub> levels are higher now than compared with natural cycles observed through time? Thankfully we have ice cores that date back over 400,000 years ago. By analyzing the tiny bubbles trapped for eons deep (<em>cores have been drilled as deep as 3,623 m!</em>) within the ice at known points in time (based on the depth of the ice layer), it’s possible to reconstruct a record of C0<sub>2</sub> on Earth over a very long period of time.</p>
+
+<p>These data are publically available as a simple text file <a href="http://cdiac.ornl.gov/ftp/trends/co2/vostok.icecore.co2">here</a>, and a full description of the metadata is <a href="http://cdiac.ornl.gov/trends/co2/vostok.html">here</a>.</p>
+
+<p>Let’s download and take a look!</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_tsv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"http://cdiac.ornl.gov/ftp/trends/co2/vostok.icecore.co2"</span><span class="p">,</span><span class="w"> </span><span class="n">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="n">col_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"depth_m"</span><span class="p">,</span><span class="s2">"ice_age_yr_BP"</span><span class="p">,</span><span class="w"> </span><span class="s2">"air_age_yr_BP"</span><span class="p">,</span><span class="w"> </span><span class="s2">"C02_conc_ppmv"</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## Parsed with column specification:
+## cols(
+##   depth_m = col_double(),
+##   ice_age_yr_BP = col_integer(),
+##   air_age_yr_BP = col_integer(),
+##   C02_conc_ppmv = col_double()
+## )
+</code></pre>
+</div>
+
+<h3 id="making-a-nice-ggplot">Making a Nice <code class="highlighter-rouge">ggplot</code></h3>
+
+<p>If we want to make a basic plot, we can use the following code to simply show the data as is. It works, but compare with code for <code class="highlighter-rouge">ggplot</code>. Notice that the <code class="highlighter-rouge">with()</code> function is just a way to “attach” the data so we don’t have to use the <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#100;&#097;&#116;&#097;&#064;&#099;&#111;&#108;&#117;&#109;&#110;">&#100;&#097;&#116;&#097;&#064;&#099;&#111;&#108;&#117;&#109;&#110;</a> convention when writing our function calls.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">#plot(df$depth_m, df$ice_age_yr_BP)
+</span><span class="w">
+</span><span class="c1"># baseplot
+</span><span class="n">with</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">air_age_yr_BP</span><span class="o">/</span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">C</span><span class="m">02</span><span class="err">_</span><span class="n">conc_ppmv</span><span class="p">,</span><span class="w">
+              </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"darkblue"</span><span class="p">,</span><span class="w">
+              </span><span class="n">ylab</span><span class="o">=</span><span class="nf">expression</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"C0"</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="s2">" Concentration (ppmv)"</span><span class="p">),</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s2">""</span><span class="p">),</span><span class="w">
+              </span><span class="n">xlab</span><span class="o">=</span><span class="s2">"Age of Entrapped Air (kyr BP)"</span><span class="p">,</span><span class="w">
+              </span><span class="n">main</span><span class="o">=</span><span class="nf">expression</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"C0"</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="s2">" through Time: Vostok Ice Core Data"</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s2">""</span><span class="p">)),</span><span class="w"> </span><span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">180</span><span class="p">,</span><span class="w"> </span><span class="m">420</span><span class="p">)))</span><span class="w">
+
+</span><span class="c1"># add another "layer" (similar to using the geom_ in ggplot)
+</span><span class="n">with</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">points</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">air_age_yr_BP</span><span class="o">/</span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">C</span><span class="m">02</span><span class="err">_</span><span class="n">conc_ppmv</span><span class="p">,</span><span class="w">
+                </span><span class="n">xlab</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">21</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"gray50"</span><span class="p">,</span><span class="w">
+     </span><span class="n">bg</span><span class="o">=</span><span class="s2">"skyblue2"</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># plot modern CO2 levels (notice we aren't using a data frame but giving a single data point location)
+</span><span class="n">points</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">406</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">1.7</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># add some text
+</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">406</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"C02 Level \n on Jan 31, 2017!"</span><span class="p">,</span><span class="w">
+     </span><span class="n">font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"maroon"</span><span class="p">,</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/wRangling-Ecology/assignments/images/baseplot-1.png" alt="" /></p>
+
+<p>Remember, to use these base plot options, you have to always call a <code class="highlighter-rouge">plot()</code> first, and then <code class="highlighter-rouge">points()</code> or <code class="highlighter-rouge">lines()</code>. It won’t work if you try to do it the other way around. Also, the use of the <code class="highlighter-rouge">expression()</code> is a way to make formulas, scientific notation, etc. look correct in your plots.</p>
+
+<p>Ok, now let’s try something similar in a <strong>ggplot</strong> version, notice the differences? Similarities?</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">viridis</span><span class="p">)</span><span class="w"> </span><span class="c1"># for nice color scheme
+</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">air_age_yr_BP</span><span class="o">/</span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">C</span><span class="m">02</span><span class="err">_</span><span class="n">conc_ppmv</span><span class="p">),</span><span class="w">
+                     </span><span class="n">color</span><span class="o">=</span><span class="s2">"gray20"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">air_age_yr_BP</span><span class="o">/</span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">C</span><span class="m">02</span><span class="err">_</span><span class="n">conc_ppmv</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">depth_m</span><span class="p">),</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">21</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_fill_viridis</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_y_continuous</span><span class="p">(</span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">180</span><span class="p">,</span><span class="w"> </span><span class="m">420</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"Age of Entrapped Air (kyr BP)"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="nf">expression</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="n">C</span><span class="m">0</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="s2">" Concentration (ppmv)"</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s2">""</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="c1">#geom_smooth(data=df, aes(x=air_age_yr_BP/1000, y=C02_conc_ppmv)) +
+</span><span class="w">  </span><span class="n">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="o">=</span><span class="m">406</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_label</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">406</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="s2">"Current C02 Level"</span><span class="p">),</span><span class="w">
+             </span><span class="n">col</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">nudge_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme_bw</span><span class="p">()</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/wRangling-Ecology/assignments/images/ggplot_version-1.png" alt="" /></p>
+
+<h3 id="map-where-this-is">Map Where This Is</h3>
+
+<p><strong>Vostok, Antarctica</strong> <strong>-78.4645° S, 106.8340° E</strong> <strong>3488 m above MSL</strong></p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">maps</span><span class="p">)</span><span class="w"> </span><span class="c1"># a mapping package
+</span><span class="n">library</span><span class="p">(</span><span class="n">mapdata</span><span class="p">)</span><span class="w"> </span><span class="c1"># map data
+</span><span class="n">library</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span><span class="w"> </span><span class="c1"># for converting data
+</span><span class="w">
+</span><span class="c1"># change the degree symbol to a space
+</span><span class="n">xlat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'°'</span><span class="p">,</span><span class="w"> </span><span class="n">replacement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">,</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'-78.4645°'</span><span class="p">)</span><span class="w">
+</span><span class="n">xlon</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s1">'°'</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">,</span><span class="s1">'106.8340°'</span><span class="p">)</span><span class="w">
+
+</span><span class="n">ice</span><span class="o">&lt;-</span><span class="n">data.frame</span><span class="p">(</span><span class="s2">"x"</span><span class="o">=</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">xlon</span><span class="p">),</span><span class="w"> </span><span class="s2">"y"</span><span class="o">=</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">xlat</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># convert from decimal deg to deg_minute_second
+#xlat &lt;- measurements::conv_unit(xlat, from = 'dec_deg', to = 'deg_min_sec')
+#xlon &lt;- measurements::conv_unit(xlon, from = 'dec_deg', to = 'deg_min_sec')
+</span><span class="w">
+</span><span class="c1"># here's a nice way to simply see where your point is verbally...
+</span><span class="n">map.where</span><span class="p">(</span><span class="n">database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"world"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="o">=</span><span class="n">ice</span><span class="o">$</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">ice</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] "Antarctica"
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># and an actual world map
+</span><span class="n">map</span><span class="p">(</span><span class="n">database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"world"</span><span class="p">,</span><span class="w"> </span><span class="n">plot</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"gray80"</span><span class="p">)</span><span class="w"> </span><span class="c1"># just the map, no points
+</span><span class="n">map.axes</span><span class="p">()</span><span class="w"> </span><span class="c1"># add axes
+</span><span class="n">points</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ice</span><span class="o">$</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ice</span><span class="o">$</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">21</span><span class="p">,</span><span class="w"> </span><span class="n">bg</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># add the points
+</span><span class="n">title</span><span class="p">(</span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Vostok, Antartica"</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Location of ice core data"</span><span class="p">)</span><span class="w"> </span><span class="c1"># add a title
+</span></code></pre>
+</div>
+
+<p><img src="/wRangling-Ecology/assignments/images/maps-1.png" alt="" /></p>
+
+<h2 id="what-about-c0sub2sub-today">What About C0<sub>2</sub> Today?</h2>
+
+<p>A good site to check the current C0<sub>2</sub> emission level is <a href="https://www.co2.earth/">here</a>. NOAA’s <a href="https://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html">site</a> provides trends across different time stamps, dating back to <strong>1959</strong> using the Mauna Loa Observatory measurents.</p>
+
+<p>Let’s pull the annual measurements using the same commands we used above.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">viridis</span><span class="p">)</span><span class="w"> </span><span class="c1"># for colors
+</span><span class="w">
+</span><span class="c1"># notice here we can use the base R read.table() function, it automatically ignores any lines that start with "#"
+</span><span class="n">df2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">col.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"year"</span><span class="p">,</span><span class="w"> </span><span class="s2">"mon"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dec_date"</span><span class="p">,</span><span class="w"> </span><span class="s2">"avg_C02"</span><span class="p">,</span><span class="w"> </span><span class="s2">"interpolated_C02"</span><span class="p">,</span><span class="w"> </span><span class="s2">"trend_seas_corr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"no_days"</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># use dplyr to filter and summarize daily data to annual, get rid of missing/NAs (values -99)
+</span><span class="n">df_ann</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df2</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">avg_C02</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarize</span><span class="p">(</span><span class="n">ann_C02</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">avg_C02</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="nb">T</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># plot
+</span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_line</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_ann</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">ann_C02</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s2">"darkblue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"Year"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="nf">expression</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="n">C</span><span class="m">0</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="s2">" Concentration (ppmv)"</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s2">""</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_ann</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">ann_C02</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_ann</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">ann_C02</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">ann_C02</span><span class="p">),</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">21</span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">2.5</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">0.8</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_fill_viridis</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="o">=</span><span class="m">406</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_label</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1970</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">406</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="s2">"Current C02 Level"</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">nudge_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_x_continuous</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1955</span><span class="p">,</span><span class="m">2017</span><span class="p">,</span><span class="m">5</span><span class="p">),</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1955</span><span class="p">,</span><span class="m">2017</span><span class="p">,</span><span class="m">5</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"C02 At Mauna Loa Since 1958"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## `geom_smooth()` using method = 'loess'
+</code></pre>
+</div>
+
+<p><img src="/wRangling-Ecology/assignments/images/getC02_currentdata-1.png" alt="" /></p>
+
+<h2 id="fine-scale-meterological-data">Fine Scale Meterological Data</h2>
+
+<p>There’s an abundance of meterological data available for download now, but since we are still thinking about C0<sub>2</sub>, let’s pull some fine-scale meterological data from the Mauna Loa station. This is met data collected every <strong>minute</strong> for a whole year.</p>
+
+<p>Metadata for this is <a href="ftp://aftp.cmdl.noaa.gov/data/meteorology/in-situ/README">here</a>. Data used in this example is <a href="ftp://aftp.cmdl.noaa.gov/data/meteorology/in-situ/mlo/2001/">here (minute scale met data)</a></p>
+
+<h3 id="downloading-lots-of-files-from-an-ftp-site">Downloading lots of files from an FTP site</h3>
+
+<p><strong>Important…we didn’t do this in class! Just showing it can be done</strong></p>
+
+<p>To actually go download all these in one go, try using some UNIX/terminal code! This will most likely only work in OSX, but you should be able to install <code class="highlighter-rouge">wget</code> on most any platform. However, you don’t have to do this, because this data is already available for download on github <a href="">here</a></p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># change directory to current dir
+</span><span class="n">system</span><span class="p">(</span><span class="s2">"cd ~/Documents/github/teaching/wRangling_Lectures/data"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># get all files in a single dir
+</span><span class="n">system</span><span class="p">(</span><span class="s2">"wget --no-verbose --no-parent --recursive --level=1 --no-directories ftp://aftp.cmdl.noaa.gov/data/meteorology/in-situ/mlo/2001/"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<h3 id="aggregating-lots-of-data-and-multiple-files">Aggregating Lots of Data and Multiple Files</h3>
+
+<p>So we have 12 files, each a month worth of measurements taken every minute, which is roughly <em>(<code class="highlighter-rouge">44,000</code> measurements <code class="highlighter-rouge">*</code> <code class="highlighter-rouge">12</code> months)</em>, or about a half million lines of data. Give or take.</p>
+
+<p>First step, how do we read in this many files at once and merge them?</p>
+
+<h3 id="read-in-multiple-fileshttpserialmentorcomblog2016613reading-and-combining-many-tidy-data-files-in-r">Read in <a href="http://serialmentor.com/blog/2016/6/13/reading-and-combining-many-tidy-data-files-in-R">Multiple Files</a></h3>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">require</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">  </span><span class="c1"># for read_csv()
+</span><span class="n">require</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">  </span><span class="c1"># for mutate()
+</span><span class="n">require</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">  </span><span class="c1"># for unnest()
+</span><span class="n">require</span><span class="p">(</span><span class="n">purrr</span><span class="p">)</span><span class="w">  </span><span class="c1"># for map(), reduce()
+</span><span class="w">
+</span><span class="n">folder</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data/2001_mauna_loa_met_data"</span><span class="w"> </span><span class="c1"># the folder where the data lives
+</span><span class="n">files_list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dir</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">folder</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*.txt"</span><span class="p">)</span><span class="w"> </span><span class="c1"># list all files in that folder ending with .txt
+</span><span class="w">
+</span><span class="c1"># Option 1:  Simple version, read all files in as one dataframe
+</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">files_list</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">purrr</span><span class="o">::</span><span class="n">map</span><span class="p">(</span><span class="o">~</span><span class="n">read.table</span><span class="p">(</span><span class="n">file.path</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span><span class="w"> </span><span class="n">.</span><span class="p">),</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">    </span><span class="c1"># read in all the files individually
+</span><span class="w">  </span><span class="n">reduce</span><span class="p">(</span><span class="n">rbind</span><span class="p">)</span><span class="w">       </span><span class="c1"># reduce with rbind into one dataframe
+</span><span class="w">
+</span><span class="c1"># add column names to the dataframe
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"siteID"</span><span class="p">,</span><span class="w"> </span><span class="s2">"year"</span><span class="p">,</span><span class="w"> </span><span class="s2">"month"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day"</span><span class="p">,</span><span class="w"> </span><span class="s2">"hour24"</span><span class="p">,</span><span class="w"> </span><span class="s2">"min"</span><span class="p">,</span><span class="w"> </span><span class="s2">"windDir"</span><span class="p">,</span><span class="w">   </span><span class="s2">"windSpeed_m_s"</span><span class="p">,</span><span class="w"> </span><span class="s2">"windSteady"</span><span class="p">,</span><span class="w"> </span><span class="s2">"baro_hPa"</span><span class="p">,</span><span class="w"> </span><span class="s2">"temp_C_2m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"temp_C_10m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"temp_C_towertop"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rel_humid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"precip_intens_mm_hr"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">head</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span><span class="nf">dim</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## Option 2: read in files &amp; add column with the filename along with all the data from that file, then combine into one dataframe
+</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data_frame</span><span class="p">(</span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">files_list</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="c1"># create dataframe with column of the filenames
+</span><span class="w">  </span><span class="n">mutate</span><span class="p">(</span><span class="n">file_contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="c1"># read files in
+</span><span class="w">                             </span><span class="o">~</span><span class="n">read.table</span><span class="p">(</span><span class="n">file.path</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span><span class="w"> </span><span class="n">.</span><span class="p">),</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">unnest</span><span class="w"> </span><span class="c1"># this unlists all the list of dataframe
+</span><span class="w">
+</span><span class="c1"># add column names
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"filename"</span><span class="p">,</span><span class="w"> </span><span class="s2">"siteID"</span><span class="p">,</span><span class="w"> </span><span class="s2">"year"</span><span class="p">,</span><span class="w"> </span><span class="s2">"month"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day"</span><span class="p">,</span><span class="w"> </span><span class="s2">"hour24"</span><span class="p">,</span><span class="w"> </span><span class="s2">"min"</span><span class="p">,</span><span class="w"> </span><span class="s2">"windDir"</span><span class="p">,</span><span class="w">   </span><span class="s2">"windSpeed_m_s"</span><span class="p">,</span><span class="w"> </span><span class="s2">"windSteady"</span><span class="p">,</span><span class="w"> </span><span class="s2">"baro_hPa"</span><span class="p">,</span><span class="w"> </span><span class="s2">"temp_C_2m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"temp_C_10m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"temp_C_towertop"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rel_humid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"precip_intens_mm_hr"</span><span class="p">)</span><span class="w">
+
+</span><span class="nf">dim</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># save this as an rds file and an rda file!
+</span><span class="n">mloa_2001</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="c1"># remember with rda we can't rename the dataframe when we "load()".
+</span><span class="w">
+</span><span class="n">dplyr</span><span class="o">::</span><span class="n">write_rds</span><span class="p">(</span><span class="n">mloa_2001</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data_output/mauna_loa_met_2001_minute.rds"</span><span class="p">,</span><span class="w"> </span><span class="n">compress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gz"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">save</span><span class="p">(</span><span class="n">mloa_2001</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data_output/mauna_loa_met_2001_minute.rda"</span><span class="p">,</span><span class="w"> </span><span class="n">compress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Wow that’s cool!</p>
+
+<p>Okay, but next steps will be playin with some of this data insanity…stay tuned for the actual DateTime lesson next lecture (or script shared in-between).</p>
+
+<h4>Reading</h4>
+
+<ul>
+  <li>
+    <p>Topics</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">POSIXct</code></li>
+      <li><code class="highlighter-rouge">Dates</code></li>
+      <li><code class="highlighter-rouge">POSIXlt</code></li>
+      <li>Datetimes and conversions</li>
+    </ul>
+  </li>
+  <li>
+    <p>Readings</p>
+  </li>
+</ul>
+
+<p>Please read through/familiarize yourselves with the Date and datetime lingo in R. In particular try to at least know what the main classes of data are (<code class="highlighter-rouge">POSIXct</code>, <code class="highlighter-rouge">POSIXlt</code>, <code class="highlighter-rouge">Date</code>)</p>
+
+<ul>
+  <li>Bonnie Dixon gave a nice talk on datetimes in R at our <a href="http://www.noamross.net/blog/2014/2/10/using-times-and-dates-in-r---presentation-code.html">Davis R-Users Group back in 2014</a>…read through it.</li>
+  <li>Read through the <a href="https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html">excellent demo using the datetime package <code class="highlighter-rouge">lubridate</code></a></li>
+  <li>Bonus (but much more in depth): Everything you want to know and more about specific of datetimes: https://www.stat.berkeley.edu/~s133/dates.html</li>
+</ul>
+
+<h4>Lecture Notes</h4>
+
+<h4 id="learning-objectives">Learning Objectives</h4>
+
+<blockquote>
+  <p>Following this assignment students should be able to:</p>
+
+  <ul>
+    <li>understand the 3 date/datetime classes in R</li>
+    <li>convert data between the three classes (e.g., using <code class="highlighter-rouge">lubridate</code>)</li>
+    <li>work with date &amp; datetime data efficiently</li>
+  </ul>
+</blockquote>
+
+<p>Since we didn’t really get to the datetime stuff last lesson, let’s dive straight in here.</p>
+
+<h2 id="datetimes-aka-insanity">Datetimes (aka Insanity)</h2>
+
+<p>First, please read:</p>
+
+<ul>
+  <li>this lesson on <a href="http://www.datacarpentry.org/spreadsheet-ecology-lesson/03-dates-as-data.html">dates &amp; spreadsheets</a></li>
+  <li><a href="https://www.stat.berkeley.edu/~s133/dates.html">https://www.stat.berkeley.edu/~s133/dates.html</a></li>
+  <li><a href="https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html">https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html</a></li>
+  <li><a href="http://www.noamross.net/blog/2014/2/10/using-times-and-dates-in-r---presentation-code.html">http://www.noamross.net/blog/2014/2/10/using-times-and-dates-in-r---presentation-code.html</a></li>
+</ul>
+
+<p>Various commands and functions available. There are <strong>3</strong> basic time classes in R:</p>
+
+<ul>
+  <li>Dates (just dates, i.e., 2012-02-10)</li>
+  <li>POSIXct (“<strong>ct</strong>” == calendar time, best class for dates with times)</li>
+  <li>POSIXlt (“<strong>lt</strong>” == local time, enables easy extraction of specific componants of a time, however, remember that POXIXlt objects are lists)</li>
+</ul>
+
+<h3 id="working-with-dates">Working with Dates</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">as.Date("2016-01-01")</code> = 2016-01-01</li>
+  <li><code class="highlighter-rouge">lubridate::ymd("2016-01-01")</code> or <code class="highlighter-rouge">lubridate::mdy</code> or <code class="highlighter-rouge">lubridate::dmy</code> = 2016-01-01</li>
+</ul>
+
+<h3 id="working-with-datetimes--timezones">Working with Datetimes &amp; Timezones</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">as.POSIXct("2016-01-01 12:00", "UTC")</code> = 2016-01-01 12:00:00</li>
+  <li><code class="highlighter-rouge">strptime("2016/01/01 12:00",format = "%Y/%m/%d %H:%M")</code> = 0, 0, 12, 1, 0, 116, 5, 0, 0, PST, NA</li>
+  <li><code class="highlighter-rouge">lubridate::ymd_hms("2016/01/01 21:22:22")</code> = 2016-01-01 21:22:22</li>
+  <li><code class="highlighter-rouge">lubridate::ymd_hms("20160101 21:22:22")</code> = 2016-01-01 21:22:22</li>
+  <li><code class="highlighter-rouge">lubridate::ymd_hms("2016-01-01 21:22:22", tz = "America/Los_Angeles")</code> = 2016-01-01 21:22:22</li>
+</ul>
+
+<h3 id="datetimes-without-timezones-and-chron">Datetimes without Timezones (and <code class="highlighter-rouge">chron</code>)</h3>
+
+<p>The <code class="highlighter-rouge">chron</code> package may be helpful for these tasks, however, this may also be a suitable use of the POSIXlt class.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">chron::as.chron("2013-07-24 23:55:26")</code> = 1.591099710^{4}</li>
+  <li><code class="highlighter-rouge">chron::as.chron("07/25/13 08:32:07", "%m/%d/%y %H:%M:%S")</code> = 1.591135610^{4}</li>
+</ul>
+
+<h3 id="using-the-lubridate-package">Using the <code class="highlighter-rouge">lubridate</code> package</h3>
+
+<p>The data we’ll be using is from our lecture, but can be downloaded <a href="/wRangling-Ecology/data/mauna_loa_met_2001_minute.rda">here</a></p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># let's load our climate data from our previous lesson:
+</span><span class="w">
+</span><span class="n">load</span><span class="p">(</span><span class="s2">"data_output/mauna_loa_met_2001_minute.rda"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">lubridate</span><span class="p">,</span><span class="w"> </span><span class="n">warn.conflicts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">,</span><span class="w"> </span><span class="n">warn.conflicts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># we need to make a datetime column...let's use paste
+</span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">datetime</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">day</span><span class="p">,</span><span class="s2">" "</span><span class="p">,</span><span class="w"> </span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">hour24</span><span class="p">,</span><span class="w"> </span><span class="s2">":"</span><span class="p">,</span><span class="w"> </span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">min</span><span class="p">)</span><span class="w"> </span><span class="c1"># this makes a character column
+</span><span class="w">
+</span><span class="c1"># we can nest this within a lubridate function to convert directly to POSIXct
+</span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">datetime</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ymd_hm</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">day</span><span class="p">,</span><span class="s2">" "</span><span class="p">,</span><span class="w"> </span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">hour24</span><span class="p">,</span><span class="w"> </span><span class="s2">":"</span><span class="p">,</span><span class="w"> </span><span class="n">mloa_2001</span><span class="o">$</span><span class="n">min</span><span class="p">))</span><span class="w">
+
+</span><span class="n">summary</span><span class="p">(</span><span class="n">mloa_2001</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##    filename         siteID            year          month
+##  Length:459769      MLO:459769   Min.   :2001   Min.   : 1.000
+##  Class :character                1st Qu.:2001   1st Qu.: 3.000
+##  Mode  :character                Median :2001   Median : 6.000
+##                                  Mean   :2001   Mean   : 6.474
+##                                  3rd Qu.:2001   3rd Qu.:10.000
+##                                  Max.   :2001   Max.   :12.000
+##       day            hour24           min           windDir
+##  Min.   : 1.00   Min.   : 0.00   Min.   : 0.00   Min.   :-999.0
+##  1st Qu.: 8.00   1st Qu.: 5.00   1st Qu.:15.00   1st Qu.: 115.0
+##  Median :15.00   Median :11.00   Median :30.00   Median : 156.0
+##  Mean   :15.44   Mean   :11.43   Mean   :29.51   Mean   : 144.5
+##  3rd Qu.:22.00   3rd Qu.:18.00   3rd Qu.:45.00   3rd Qu.: 236.0
+##  Max.   :31.00   Max.   :23.00   Max.   :59.00   Max.   : 360.0
+##  windSpeed_m_s       windSteady    baro_hPa        temp_C_2m
+##  Min.   :-99.900   Min.   :-9   Min.   :-999.9   Min.   :-999.900
+##  1st Qu.:  1.900   1st Qu.:-9   1st Qu.:-999.9   1st Qu.:   4.400
+##  Median :  3.500   Median :-9   Median :-999.9   Median :   6.900
+##  Mean   :  1.229   Mean   :-9   Mean   :-999.9   Mean   :   4.747
+##  3rd Qu.:  5.900   3rd Qu.:-9   3rd Qu.:-999.9   3rd Qu.:   9.400
+##  Max.   : 20.500   Max.   :-9   Max.   :-999.9   Max.   :  18.900
+##    temp_C_10m      temp_C_towertop      rel_humid      precip_intens_mm_hr
+##  Min.   :-999.90   Min.   :-999.900   Min.   :-99.00   Min.   :-99.0000
+##  1st Qu.:   4.90   1st Qu.:   5.600   1st Qu.: 14.00   1st Qu.:  0.0000
+##  Median :   6.90   Median :   7.200   Median : 28.00   Median :  0.0000
+##  Mean   : -46.69   Mean   :   1.539   Mean   : 31.82   Mean   : -0.8066
+##  3rd Qu.:   8.60   3rd Qu.:   8.800   3rd Qu.: 57.00   3rd Qu.:  0.0000
+##  Max.   :  16.90   Max.   :  16.200   Max.   :138.00   Max.   : 60.0000
+##     datetime
+##  Min.   :2001-01-01 00:00:00
+##  1st Qu.:2001-03-29 06:57:00
+##  Median :2001-06-24 06:13:00
+##  Mean   :2001-06-30 15:28:42
+##  3rd Qu.:2001-10-07 00:34:00
+##  Max.   :2001-12-31 23:59:00
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># clean up the NA data (NA's are = -99 or -999 depending on data col)
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mloa_2001</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="n">rel_humid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">-99</span><span class="p">,</span><span class="w">
+         </span><span class="o">!</span><span class="n">temp_C_2m</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">-999</span><span class="p">,</span><span class="w">
+         </span><span class="o">!</span><span class="n">windSpeed_m_s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">-99.9</span><span class="p">)</span><span class="w">
+
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">sample_n</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">20000</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">ggplot</span><span class="p">(</span><span class="n">.</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">datetime</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">rel_humid</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">temp_C_2m</span><span class="p">),</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">viridis</span><span class="o">::</span><span class="n">scale_color_viridis</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## Warning: Removed 28 rows containing missing values (geom_point).
+</code></pre>
+</div>
+
+<p><img src="/wRangling-Ecology/lectures/images/lubridate_basics-1.png" alt="pointplot" /></p>
+
+<hr />
+
+<h4> Exercises </h4>
+<ol>
+
+</ol>
+
+
+</div>
+
+    </div>
+
+  </body>
+</html>
